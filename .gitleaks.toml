@@ -2,13 +2,24 @@
 description = "Allowlist for gitleaks"
 paths = [
     "test/**",
+    "tests/**",
     "**/*.test.ts",
     "**/*.spec.ts",
     "__tests__/**",
     "jest.setup.js",
     "jest.config.js",
     "README.snippets.md",
-    "SECURITY_GUIDE.md"
+    "SECURITY_GUIDE.md",
+    "playwright-report/**",
+    "test-results/**",
+    "coverage/**",
+    "node_modules/**",
+    ".next/**",
+    "public/**",
+    "CHANGELOG.md",
+    "README.md",
+    "package-lock.json",
+    "tsconfig.tsbuildinfo"
 ]
 
 [[rules]]
