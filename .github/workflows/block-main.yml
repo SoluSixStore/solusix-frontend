@@ -1,9 +1,13 @@
 name: Block direct push to main
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   block:
-    if: github.ref == 'refs/heads/main' && github.event.pusher.name != 'web-flow'
+    # só executa se NÃO for um merge de PR via GitHub Web Flow
+    if: github.actor != 'web-flow'
     runs-on: ubuntu-latest
     steps:
       - run: |
