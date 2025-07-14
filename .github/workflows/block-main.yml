@@ -1,0 +1,11 @@
+name: Block direct push to main
+on: push
+
+jobs:
+  block:
+    if: github.ref == 'refs/heads/main' && github.event.pusher.name != 'web-flow'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Push direto no main bloqueado"
+          exit 1
