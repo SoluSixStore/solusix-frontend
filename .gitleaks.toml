@@ -1,0 +1,102 @@
+[allowlist]
+description = "Allowlist for gitleaks"
+paths = [
+    "test/**",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "__tests__/**",
+    "jest.setup.js",
+    "jest.config.js",
+    "README.snippets.md",
+    "SECURITY_GUIDE.md"
+]
+
+[[rules]]
+id = "generic-api-key"
+description = "Generic API Key"
+regex = '''(?i)(api[_-]?key|apikey|secret[_-]?key|private[_-]?key)['"]?\s*[:=]\s*['"]?[a-zA-Z0-9]{32,45}['"]?'''
+tags = ["key", "API"]
+
+[[rules]]
+id = "openai-api-key"
+description = "OpenAI API Key"
+regex = '''sk-[a-zA-Z0-9]{20,}'''
+tags = ["key", "OpenAI"]
+
+[[rules]]
+id = "stripe-api-key"
+description = "Stripe API Key"
+regex = '''(sk|pk)_(test|live)_[0-9a-zA-Z]{24,}'''
+tags = ["key", "Stripe"]
+
+[[rules]]
+id = "aws-access-key-id"
+description = "AWS Access Key ID"
+regex = '''AKIA[0-9A-Z]{16}'''
+tags = ["key", "AWS"]
+
+[[rules]]
+id = "aws-secret-access-key"
+description = "AWS Secret Access Key"
+regex = '''[0-9a-zA-Z/+]{40}'''
+tags = ["key", "AWS"]
+
+[[rules]]
+id = "google-api-key"
+description = "Google API Key"
+regex = '''AIza[0-9A-Za-z\\-_]{35}'''
+tags = ["key", "Google"]
+
+[[rules]]
+id = "firebase-url"
+description = "Firebase URL"
+regex = '''https://[a-zA-Z0-9.-]*\.firebaseio\.com'''
+tags = ["url", "Firebase"]
+
+[[rules]]
+id = "database-url"
+description = "Database URL"
+regex = '''(postgresql|mysql|mongodb|redis)://[a-zA-Z0-9._%+-]+:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'''
+tags = ["url", "Database"]
+
+[[rules]]
+id = "jwt-secret"
+description = "JWT Secret"
+regex = '''eyJ[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*'''
+tags = ["secret", "JWT"]
+
+[[rules]]
+id = "email-password"
+description = "Email and Password"
+regex = '''[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Z|a-z]{2,}['"]?\s*[:=]\s*['"]?[^'"]+['"]?'''
+tags = ["credentials", "Email"]
+
+[[rules]]
+id = "github-token"
+description = "GitHub Token"
+regex = '''ghp_[a-zA-Z0-9]{36}'''
+tags = ["key", "GitHub"]
+
+[[rules]]
+id = "slack-token"
+description = "Slack Token"
+regex = '''xox[baprs]-([0-9a-zA-Z]{10,48})'''
+tags = ["key", "Slack"]
+
+[[rules]]
+id = "private-key"
+description = "Private Key"
+regex = '''-----BEGIN[^-]+PRIVATE KEY-----'''
+tags = ["key", "Private"]
+
+[[rules]]
+id = "ssh-key"
+description = "SSH Private Key"
+regex = '''-----BEGIN OPENSSH PRIVATE KEY-----'''
+tags = ["key", "SSH"]
+
+[[rules]]
+id = "azure-key"
+description = "Azure Key"
+regex = '''[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}'''
+tags = ["key", "Azure"] 

@@ -1,0 +1,75 @@
+{
+  "products": [
+    {
+      "id": "detergente-premium",
+      "name": "Detergente Premium",
+      "slug": "detergente-premium",
+      "price": 79.0,
+      "originalPrice": 89.0,
+      "image": "/assets/product-detergente.jpg",
+      "tags": ["limpeza", "detergente", "premium"],
+      "category": "limpeza",
+      "description": "Detergente profissional de alta performance para limpeza pesada",
+      "features": [
+        "Concentrado premium",
+        "Rendimento superior",
+        "Biodegradável",
+        "5L por galão"
+      ],
+      "specs": {
+        "volume": "5L",
+        "rendimento": "Até 200 lavagens",
+        "pH": "Neutro",
+        "fragrância": "Limão fresco"
+      },
+      "pricePerLiter": 15.8,
+      "isNew": true,
+      "isB2B": true,
+      "isB2C": true
+    },
+    {
+      "id": "secante-profissional",
+      "name": "Secante Profissional",
+      "slug": "secante-profissional",
+      "price": 89.0,
+      "originalPrice": 99.0,
+      "image": "/assets/product-secante.jpg",
+      "tags": ["limpeza", "secante", "profissional"],
+      "category": "limpeza",
+      "description": "Secante de alta qualidade para uso profissional",
+      "features": [
+        "Secagem rápida",
+        "Não deixa resíduos",
+        "Ideal para cozinhas",
+        "10L por galão"
+      ],
+      "specs": {
+        "volume": "10L",
+        "rendimento": "Até 150 aplicações",
+        "pH": "Alcalino",
+        "fragrância": "Neutro"
+      },
+      "pricePerLiter": 8.9,
+      "isNew": false,
+      "isB2B": true,
+      "isB2C": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "limpeza",
+      "name": "Limpeza",
+      "icon": "sparkles"
+    },
+    {
+      "id": "cozinha",
+      "name": "Cozinha",
+      "icon": "utensils"
+    },
+    {
+      "id": "escritorio",
+      "name": "Escritório",
+      "icon": "briefcase"
+    }
+  ]
+}
