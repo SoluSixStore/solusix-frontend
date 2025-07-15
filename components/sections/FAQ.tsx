@@ -10,7 +10,7 @@ export function FAQ() {
     {
       question: "De onde vem a experiência da SoluSix?",
       answer:
-        "A SoluSix nasceu de mais de 30 anos de experiência no mercado de suprimentos profissionais. Nossa equipe acumulou conhecimento técnico e prático em diversos setores, desde indústrias até pequenos comércios, sempre focando na qualidade e eficiência dos produtos.",
+        "A SoluSix foi criada em 2025 por seis sócios com mais de 30 anos de experiência no mercado de suprimentos profissionais. Nossa credibilidade vem da vivência real dos sócios, que atuam há décadas no setor, incluindo a fundação da Editec em 2019. Essa bagagem nos permite selecionar produtos testados em campo e oferecer uma operação confiável desde o primeiro pedido.",
     },
     {
       question: "Como funciona a entrega?",
@@ -54,7 +54,7 @@ export function FAQ() {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="faq" className="py-20 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -63,8 +63,13 @@ export function FAQ() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 bg-lime/10 text-lime px-4 py-2 rounded-full mb-6">
-            <HelpCircle className="w-5 h-5" />
+          <div className="inline-flex items-center gap-2 bg-navy/10 text-navy px-4 py-2 rounded-full mb-6">
+            <motion.div
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <HelpCircle className="w-5 h-5" />
+            </motion.div>
             <span className="font-semibold">Perguntas Frequentes</span>
           </div>
 
@@ -116,22 +121,6 @@ export function FAQ() {
             </motion.div>
           ))}
         </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <p className="text-gray-600 mb-4">
-            Ainda tem dúvidas? Entre em contato conosco!
-          </p>
-          <button className="bg-lime text-navy px-8 py-3 rounded-lg font-semibold hover:bg-lime/90 transition-colors">
-            Falar conosco
-          </button>
-        </motion.div>
       </div>
     </section>
   );

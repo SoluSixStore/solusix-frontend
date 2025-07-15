@@ -1,33 +1,43 @@
 import { motion } from "framer-motion";
-import { Sparkles, Truck, DollarSign, Headphones } from "lucide-react";
+import { Package, Shield, RefreshCw, Users, Truck, RotateCcw } from "lucide-react";
 
 /** Purpose: Benefits section highlighting key value propositions */
 export function Benefits() {
   const benefits = [
     {
-      icon: Sparkles,
-      title: "Variedade curada",
-      description: "Produtos selecionados tecnicamente para máxima eficiência",
+      icon: Package,
+      title: "Tudo num só lugar",
+      description: "Evite lidar com vários fornecedores. Aqui, você encontra itens de limpeza, utensílios e peças industriais em um só clique.",
+    },
+    {
+      icon: Shield,
+      title: "Estoque validado por especialistas",
+      description: "Todos os produtos são usados ou testados por profissionais experientes, com garantia de desempenho no dia a dia.",
+    },
+    {
+      icon: RefreshCw,
+      title: "Reposição automática com desconto",
+      description: "Cadastre itens de uso recorrente e receba com 5% off, sem precisar refazer pedidos todo mês.",
+    },
+    {
+      icon: Users,
+      title: "Atendimento direto com sócio",
+      description: "Nada de chatbot que não resolve. Você fala com gente de verdade, que entende do produto e quer ver seu negócio prosperar.",
     },
     {
       icon: Truck,
-      title: "Entrega expressa",
-      description: "48h nas capitais, 72h no resto do Brasil",
+      title: "Primeira compra com frete grátis",
+      description: "Receba seu primeiro pedido sem pagar o frete e conheça nossa eficiência de perto.",
     },
     {
-      icon: DollarSign,
-      title: "Preço justo",
-      description: "Melhor custo-benefício do mercado",
-    },
-    {
-      icon: Headphones,
-      title: "Suporte humano",
-      description: "Atendimento personalizado via WhatsApp",
+      icon: RotateCcw,
+      title: "Reposição garantida ou seu dinheiro de volta",
+      description: "Se algo vier errado ou com defeito, resolvemos rápido: troca gratuita ou reembolso direto. Sem burocracia, sem enrolação.",
     },
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="beneficios" className="py-20 bg-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -45,7 +55,7 @@ export function Benefits() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {benefits.map((benefit, index) => (
             <motion.div
               key={benefit.title}
@@ -55,14 +65,14 @@ export function Benefits() {
               viewport={{ once: true }}
               className="text-center group"
             >
-              <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2">
-                <div className="w-16 h-16 bg-lime/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-lime/20 transition-colors">
-                  <benefit.icon className="w-8 h-8 text-lime" />
+              <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2 h-full flex flex-col">
+                <div className="w-14 h-14 bg-lime/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-lime/20 transition-colors">
+                  <benefit.icon className="w-7 h-7 text-lime" />
                 </div>
-                <h3 className="text-xl font-semibold text-navy mb-3">
+                <h3 className="text-lg font-semibold text-navy mb-2">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed flex-grow text-sm">
                   {benefit.description}
                 </p>
               </div>
@@ -72,4 +82,4 @@ export function Benefits() {
       </div>
     </section>
   );
-}
+} 

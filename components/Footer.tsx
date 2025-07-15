@@ -5,17 +5,46 @@ import {
   Facebook,
   Instagram,
   Linkedin,
+  Clock,
+  ArrowUp,
 } from "lucide-react";
 import { openWhatsApp } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
 /** Purpose: Footer component with complete company information and links */
 export function Footer() {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
   const handleWhatsAppClick = () => {
     openWhatsApp("Olá! Gostaria de saber mais sobre a SoluSix.");
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // Show/hide back to top button based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Show button when user has scrolled more than 50% of the page
+      const shouldShow = scrollY > (documentHeight - windowHeight) * 0.5;
+      setShowBackToTop(shouldShow);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <footer className="bg-navy text-white">
+    <footer className="bg-navy text-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -35,7 +64,19 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-lime transition-colors"
                 >
-                  +55 11 95793-7762
+                  (11) 95793-7762
+                </a>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-lime" />
+                <a
+                  href="https://wa.me/5511948286208"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-lime transition-colors"
+                >
+                  (11) 94828-6208
                 </a>
               </div>
 
@@ -52,6 +93,10 @@ export function Footer() {
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-lime" />
                 <span className="text-gray-300">São Paulo, SP - Brasil</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-lime" />
+                <span className="text-gray-300">Atendimento: Segunda a Sexta, 08:00 às 18:00</span>
               </div>
             </div>
           </div>
@@ -178,6 +223,25 @@ export function Footer() {
             <div className="hidden">Google Analytics: GA_ID_PLACEHOLDER</div>
           </div>
         </div>
+
+        {/* Back to Top Button */}
+        <AnimatePresence>
+          {showBackToTop && (
+            <motion.button
+              onClick={scrollToTop}
+              className="absolute bottom-8 right-8 w-11 h-11 bg-gray-800/80 text-white rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center z-10"
+              whileHover={{ scale: 1.07, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 20 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              title="Voltar ao topo"
+            >
+              <ArrowUp className="w-4 h-4" />
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
     </footer>
   );

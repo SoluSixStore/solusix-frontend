@@ -12,6 +12,7 @@ Landing page moderna e responsiva para a SoluSix - marketplace de suprimentos pr
 - **Analytics Ready**: Preparado para Google Analytics
 - **WhatsApp Integration**: CTAs diretos para WhatsApp
 - **Lead Magnet**: Pop-up exit-intent para captura de leads
+- **Formulário de Contato**: Sistema completo de envio de e-mails
 
 ## 📋 Seções Implementadas
 
@@ -23,7 +24,8 @@ Landing page moderna e responsiva para a SoluSix - marketplace de suprimentos pr
 6. **How It Works** - 3 passos simples
 7. **AutoReposição** - Banner do programa de economia
 8. **FAQ** - Perguntas frequentes
-9. **Footer** - Informações completas da empresa
+9. **Contact Form** - Formulário de contato funcional
+10. **Footer** - Informações completas da empresa
 
 ## 🛠️ Tecnologias
 
@@ -32,6 +34,7 @@ Landing page moderna e responsiva para a SoluSix - marketplace de suprimentos pr
 - **Tailwind CSS** - Estilização utilitária
 - **Framer Motion** - Animações suaves
 - **Lucide React** - Ícones modernos
+- **Nodemailer** - Envio de e-mails
 
 ## 📦 Instalação
 
@@ -52,7 +55,25 @@ yarn install
 pnpm install
 ```
 
-### 3. Execute em desenvolvimento
+### 3. Configure as variáveis de ambiente
+
+Crie um arquivo `.env.local` na raiz do projeto:
+
+```env
+# Configurações SMTP para envio de e-mails
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=seu-email@gmail.com
+SMTP_PASS=sua-senha-de-app
+
+# Configurações opcionais
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_WHATSAPP_PHONE=5511957937762
+```
+
+**Importante**: Para Gmail, use uma [senha de app](https://support.google.com/accounts/answer/185833) em vez da senha normal.
+
+### 4. Execute em desenvolvimento
 
 ```bash
 npm run dev
@@ -63,6 +84,49 @@ pnpm dev
 ```
 
 Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
+
+## 📧 Configuração do Formulário de Contato
+
+### Variáveis de Ambiente Necessárias
+
+O formulário de contato requer as seguintes variáveis de ambiente:
+
+```env
+SMTP_HOST=smtp.gmail.com          # Servidor SMTP
+SMTP_PORT=587                     # Porta (587 para TLS, 465 para SSL)
+SMTP_USER=seu-email@gmail.com     # Seu e-mail
+SMTP_PASS=sua-senha-de-app        # Senha de app (Gmail)
+```
+
+### Provedores SMTP Suportados
+
+- **Gmail**: `smtp.gmail.com:587`
+- **Outlook/Hotmail**: `smtp-mail.outlook.com:587`
+- **Yahoo**: `smtp.mail.yahoo.com:587`
+- **Provedor local**: Consulte seu provedor
+
+### Testando a Configuração
+
+Em desenvolvimento, você pode testar a configuração de e-mail:
+
+```bash
+# Via API (apenas em desenvolvimento)
+curl -X POST http://localhost:3000/api/test-email
+```
+
+### Troubleshooting
+
+**Erro de autenticação**:
+- Verifique se está usando senha de app (Gmail)
+- Confirme se o e-mail e senha estão corretos
+
+**Erro de conexão**:
+- Verifique se o host e porta estão corretos
+- Teste se o provedor permite conexões SMTP
+
+**Timeout**:
+- Verifique sua conexão com a internet
+- Alguns provedores podem ter delays
 
 ## 🚀 Deploy
 
@@ -77,9 +141,16 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
    - Selecione o repositório `solusix-landing`
    - Vercel detectará automaticamente as configurações Next.js
 
-3. **Configure as variáveis de ambiente** (opcional):
+3. **Configure as variáveis de ambiente**:
 
    ```env
+   # Obrigatórias para o formulário de contato
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_USER=seu-email@gmail.com
+   SMTP_PASS=sua-senha-de-app
+   
+   # Opcionais
    NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
    NEXT_PUBLIC_WHATSAPP_PHONE=5511957937762
    ```
@@ -112,7 +183,12 @@ solusix1/
 ├── data/                 # Dados estáticos
 │   └── products.json     # Catálogo de produtos
 ├── lib/                  # Utilitários
-│   └── utils.ts          # Funções auxiliares
+│   ├── utils.ts          # Funções auxiliares
+│   └── email.ts          # Sistema de e-mails
+├── pages/                # API Routes
+│   └── api/              # Endpoints da API
+│       ├── contact.ts    # Formulário de contato
+│       └── test-email.ts # Teste de e-mail (dev)
 ├── public/               # Assets estáticos
 │   └── assets/           # Imagens e ícones
 └── package.json          # Dependências

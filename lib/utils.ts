@@ -15,12 +15,17 @@ export function formatCurrency(value: number): string {
 }
 
 /** Purpose: Generate WhatsApp message with product details */
-export function generateWhatsAppMessage(
-  product: any,
-  quantity: number = 1,
-): string {
-  const message = `Olá! Gostaria de solicitar ${quantity}x ${product.name} por R$ ${formatCurrency(product.price)} cada.`;
-  return encodeURIComponent(message);
+export function generateWhatsAppMessage(product: any, quantity: number, discountedPrice?: number) {
+  const price = discountedPrice || product.price;
+  const totalPrice = price * quantity;
+  const discountText = discountedPrice ? " (10% de desconto aplicado)" : "";
+  
+  return `Olá! Gostaria de solicitar ${quantity}x ${product.name}${discountText}
+
+Preço unitário: ${formatCurrency(price)}
+Total: ${formatCurrency(totalPrice)}
+
+Poderia me informar sobre disponibilidade e formas de entrega?`;
 }
 
 /** Purpose: Open WhatsApp with pre-filled message */

@@ -27,11 +27,18 @@ export function AutoReposicao() {
     return () => clearInterval(timer);
   }, []);
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contato');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative py-20 overflow-hidden">
       {/* Background with parallax effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy/95 to-navy/90">
-        <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500">
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-32 h-32 bg-lime rounded-full blur-3xl animate-float"></div>
           <div
             className="absolute bottom-20 right-20 w-40 h-40 bg-lime rounded-full blur-3xl animate-float"
@@ -50,7 +57,7 @@ export function AutoReposicao() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center text-white"
+          className="text-center text-navy"
         >
           {/* Badge */}
           <motion.div
@@ -58,7 +65,7 @@ export function AutoReposicao() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-lime/20 text-lime px-4 py-2 rounded-full mb-6"
+            className="inline-flex items-center gap-2 bg-lime/20 text-navy px-4 py-2 rounded-full mb-6"
           >
             <RefreshCw className="w-5 h-5" />
             <span className="font-semibold">Programa AutoReposição</span>
@@ -69,7 +76,7 @@ export function AutoReposicao() {
             Economia automática de <span className="text-lime">{savings}%</span>
           </h2>
 
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
             Cadastre-se no programa AutoReposição e receba automaticamente seus
             produtos favoritos com desconto exclusivo
           </p>
@@ -82,30 +89,30 @@ export function AutoReposicao() {
             viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
           >
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20">
+            <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 shadow-xl">
               <TrendingDown className="w-8 h-8 text-lime mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Desconto Garantido</h3>
-              <p className="text-gray-300 text-sm">
+              <h3 className="text-lg font-semibold mb-2 text-navy">Desconto Garantido</h3>
+              <p className="text-gray-700 text-sm">
                 Economia de 10% em todos os pedidos automáticos
               </p>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20">
+            <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 shadow-xl">
               <RefreshCw className="w-8 h-8 text-lime mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">
+              <h3 className="text-lg font-semibold mb-2 text-navy">
                 Reposição Inteligente
               </h3>
-              <p className="text-gray-300 text-sm">
+              <p className="text-gray-700 text-sm">
                 Receba produtos antes de acabar o estoque
               </p>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20">
+            <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 shadow-xl">
               <div className="w-8 h-8 text-lime mx-auto mb-4 text-center text-2xl">
                 🚚
               </div>
-              <h3 className="text-lg font-semibold mb-2">Frete Grátis</h3>
-              <p className="text-gray-300 text-sm">
+              <h3 className="text-lg font-semibold mb-2 text-navy">Frete Grátis</h3>
+              <p className="text-gray-700 text-sm">
                 Entrega gratuita em todos os pedidos do programa
               </p>
             </div>
@@ -117,13 +124,13 @@ export function AutoReposicao() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex justify-center"
           >
-            <button className="bg-lime text-navy px-8 py-4 rounded-lg font-semibold text-lg hover:bg-lime/90 transition-all duration-200 transform hover:scale-105">
+            <button 
+              onClick={scrollToContact}
+              className="bg-lime text-navy px-8 py-4 rounded-lg font-semibold text-lg hover:bg-lime/90 transition-all duration-200 transform hover:scale-105"
+            >
               Cadastrar no Programa
-            </button>
-            <button className="border-2 border-lime text-lime px-8 py-4 rounded-lg font-semibold text-lg hover:bg-lime hover:text-navy transition-all duration-200">
-              Saiba Mais
             </button>
           </motion.div>
         </motion.div>
