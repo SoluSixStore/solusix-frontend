@@ -232,7 +232,7 @@ function ContatoSection() {
     try {
       console.log('📧 Sending contact form data:', formData);
       
-      const res = await fetch("/api/contact-resend", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
