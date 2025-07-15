@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     // Tentar enviar um e-mail de teste
     const { data, error } = await resend.emails.send({
-      from: 'SoluSix <onboarding@resend.dev>',
+      from: 'SoluSix <contato@solusix.com.br>',
       to: ['contato@solusix.com.br'],
       subject: 'Teste de configuração - SoluSix',
       text: 'Este é um e-mail de teste para verificar se a configuração do Resend está funcionando.',

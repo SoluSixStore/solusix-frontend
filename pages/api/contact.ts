@@ -27,6 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     console.log('📤 Attempting to send email...');
+    console.log('🔍 RESEND_API_KEY from env:', process.env.RESEND_API_KEY?.substring(0, 10) + '...');
     
     // Primeiro tentar Resend
     if (process.env.RESEND_API_KEY) {
@@ -35,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const resend = new Resend(process.env.RESEND_API_KEY);
         
         const { data, error } = await resend.emails.send({
-          from: 'SoluSix <onboarding@resend.dev>',
+          from: 'SoluSix <contato@solusix.com.br>',
           to: ['contato@solusix.com.br'],
           subject: `Novo contato de ${name}`,
           replyTo: email,
@@ -84,26 +85,19 @@ Enviado via formulário de contato do site SoluSix
         });
 
       } catch (resendError) {
-        console.warn('⚠️ Resend failed, trying SMTP fallback:', resendError);
-        // Continue para tentar SMTP
+        console.error('❌ Resend failed:', resendError);
+        return res.status(500).json({ 
+          error: 'Erro ao enviar e-mail via Resend',
+          details: resendError instanceof Error ? resendError.message : 'Unknown error'
+        });
       }
     }
 
-    // Fallback para SMTP
-    console.log('🔄 Trying SMTP fallback...');
-    const smtpResult = await sendContactEmail({ name, email, message });
-    
-    if (smtpResult.success) {
-      console.log('✅ Email sent successfully via SMTP:', { messageId: smtpResult.messageId });
-      
-      return res.status(200).json({ 
-        ok: true, 
-        messageId: smtpResult.messageId,
-        method: 'smtp'
-      });
-    } else {
-      throw new Error(`SMTP error: ${smtpResult.error}`);
-    }
+    // Se não tem API key do Resend, retornar erro
+    return res.status(500).json({ 
+      error: 'Configuração de e-mail não encontrada',
+      details: 'RESEND_API_KEY não configurada'
+    });
 
   } catch (err) {
     console.error('❌ Email sending failed:', err);

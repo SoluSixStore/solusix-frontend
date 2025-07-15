@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Enviar e-mail via Resend
     const { data, error } = await resend.emails.send({
-      from: 'SoluSix <onboarding@resend.dev>',
+      from: 'SoluSix <contato@solusix.com.br>',
       to: ['contato@solusix.com.br'],
       subject: `Novo contato de ${name}`,
       replyTo: email,
