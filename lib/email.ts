@@ -33,7 +33,7 @@ function createTransporter(): any {
     secure: Number(process.env.SMTP_PORT) === 465
   };
 
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: config.host,
     port: config.port,
     secure: config.secure,
