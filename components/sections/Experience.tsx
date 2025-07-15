@@ -1,28 +1,28 @@
 import { motion } from "framer-motion";
 import { Award, Calendar, TrendingUp } from "lucide-react";
 
-/** Purpose: Experience section highlighting 30+ years of expertise */
+/** Purpose: Experience section highlighting partners' expertise and SoluSix foundation */
 export function Experience() {
   const timeline = [
     {
       year: "1990",
-      title: "Início",
-      description: "Fundação da empresa com foco em suprimentos industriais",
+      title: "Início da Jornada",
+      description: "Parte do time inicia carreira em assistência técnica para grandes empresas de cozinhas industriais",
     },
     {
       year: "2019",
-      title: "Especialização",
-      description: "Expansão para mercado B2B com produtos premium",
+      title: "Fundação da Editec",
+      description: "Parte do time funda a Editec, especializada em cozinhas profissionais",
     },
     {
       year: "2025",
-      title: "Lançamento SoluSix",
-      description: "Plataforma digital revolucionando o mercado",
+      title: "Nascimento da SoluSix",
+      description: "Seis sócios unem forças para criar a SoluSix com experiência consolidada",
     },
   ];
 
   return (
-    <section className="py-20 bg-navy text-white">
+    <section id="experiencia" className="py-20 bg-navy text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -33,14 +33,14 @@ export function Experience() {
         >
           <div className="inline-flex items-center gap-2 bg-lime/10 text-lime px-4 py-2 rounded-full mb-6">
             <Award className="w-5 h-5" />
-            <span className="font-semibold">30+ anos de expertise</span>
+            <span className="font-semibold">Experiência consolidada</span>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Experiência que inspira confiança
+            Credibilidade que vem da experiência real
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Mais de três décadas no mercado de suprimentos profissionais
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Criada em 2025, a SoluSix é fruto da união de seis sócios com mais de 30 anos de vivência prática em comércio, logística, tecnologia e eventos. Parte do time fundou a Editec, especializada em soluções técnicas desde 2019.
           </p>
         </motion.div>
 
@@ -86,6 +86,19 @@ export function Experience() {
           </div>
         </div>
 
+        {/* Additional context */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center"
+        >
+          <p className="text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            Essa bagagem nos permite selecionar produtos testados em campo, negociar com quem entende do assunto e garantir uma operação confiável desde o primeiro pedido. A SoluSix nasce nova, mas já carrega experiência de sobra para entregar o que importa: qualidade, preço justo e compromisso com o cliente.
+          </p>
+        </motion.div>
+
         {/* Stats */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -96,15 +109,15 @@ export function Experience() {
         >
           <div className="text-center">
             <div className="text-4xl font-bold text-lime mb-2">30+</div>
-            <div className="text-gray-300">Anos de experiência</div>
+            <div className="text-gray-300">Anos de experiência dos sócios</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-lime mb-2">1000+</div>
-            <div className="text-gray-300">Clientes atendidos</div>
+            <div className="text-4xl font-bold text-lime mb-2">6</div>
+            <div className="text-gray-300">Sócios especialistas</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-lime mb-2">50+</div>
-            <div className="text-gray-300">Produtos premium</div>
+            <div className="text-4xl font-bold text-lime mb-2">4</div>
+            <div className="text-gray-300">Áreas de expertise</div>
           </div>
         </motion.div>
       </div>

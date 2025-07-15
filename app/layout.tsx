@@ -1,14 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import dynamic from "next/dynamic";
-
-const TwentyFirstToolbar = dynamic(
-  () =>
-    import("@21st-extension/toolbar-next").then((mod) => ({
-      default: mod.TwentyFirstToolbar,
-    })),
-  { ssr: false },
-);
+import ToolbarClient from "../components/ToolbarClient";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.solusix.com.br"),
@@ -59,13 +51,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className="antialiased">
         {children}
-        {process.env.NODE_ENV === "development" && (
-          <TwentyFirstToolbar
-            config={{
-              plugins: [],
-            }}
-          />
-        )}
+        {process.env.NODE_ENV === "development" && <ToolbarClient />}
       </body>
     </html>
   );

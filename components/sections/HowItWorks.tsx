@@ -3,28 +3,42 @@ import { Search, CreditCard, Truck } from "lucide-react";
 
 /** Purpose: How it works section with 3 simple steps */
 export function HowItWorks() {
+  const openWhatsApp = () => {
+    const phone = "+5511957937762";
+    const message = "Olá! Gostaria de saber mais sobre os produtos da SoluSix.";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  };
+
+  const scrollToProducts = () => {
+    const productsSection = document.getElementById("produtos");
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const steps = [
     {
       icon: Search,
       title: "Escolher",
       description:
-        "Navegue pelo catálogo curado e selecione os produtos que precisa",
+        "Navegue pelo catálogo curado e selecione os produtos que precisa para seu negócio",
     },
     {
       icon: CreditCard,
       title: "Pagar",
-      description: "Faça seu pedido via WhatsApp com pagamento facilitado",
+      description: "Escolha seu canal preferido: WhatsApp, Mercado Livre ou Shopee. Pagamento facilitado no método que preferir",
     },
     {
       icon: Truck,
       title: "Receber",
       description:
-        "Entrega expressa em 48h nas capitais, 72h no resto do Brasil",
+        "Receba conforme o canal escolhido: entrega expressa, retirada ou agendamento personalizado",
     },
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section id="como-funciona" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -94,10 +108,16 @@ export function HowItWorks() {
               negócio
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-lime text-navy px-8 py-3 rounded-lg font-semibold hover:bg-lime/90 transition-colors">
+              <button 
+                onClick={openWhatsApp}
+                className="bg-lime text-navy px-8 py-3 rounded-lg font-semibold hover:bg-lime/90 transition-colors"
+              >
                 Falar conosco
               </button>
-              <button className="border-2 border-lime text-lime px-8 py-3 rounded-lg font-semibold hover:bg-lime hover:text-navy transition-colors">
+              <button 
+                onClick={scrollToProducts}
+                className="border-2 border-lime text-lime px-8 py-3 rounded-lg font-semibold hover:bg-lime hover:text-navy transition-colors"
+              >
                 Ver produtos
               </button>
             </div>

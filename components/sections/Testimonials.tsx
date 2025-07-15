@@ -7,7 +7,7 @@ export function Testimonials() {
     {
       name: "Maria Silva",
       role: "Gerente de Compras",
-      company: "Restaurante Sabor & Arte",
+      company: "Restaurante",
       rating: 5,
       text: "A SoluSix revolucionou nossa gestão de suprimentos. Entrega rápida e produtos de qualidade superior.",
       avatar: "/assets/avatar-1.jpg",
@@ -15,7 +15,7 @@ export function Testimonials() {
     {
       name: "João Santos",
       role: "Proprietário",
-      company: "Hotel Vista Mar",
+      company: "Hotel",
       rating: 5,
       text: "Excelente atendimento e produtos premium. Economizamos tempo e dinheiro com a SoluSix.",
       avatar: "/assets/avatar-2.jpg",
@@ -23,7 +23,7 @@ export function Testimonials() {
     {
       name: "Ana Costa",
       role: "Diretora Administrativa",
-      company: "Escola Futuro Brilhante",
+      company: "Escola",
       rating: 5,
       text: "Produtos de qualidade e preço justo. A entrega sempre no prazo prometido.",
       avatar: "/assets/avatar-3.jpg",
@@ -31,7 +31,7 @@ export function Testimonials() {
     {
       name: "Carlos Oliveira",
       role: "Gerente de Operações",
-      company: "Indústria Metalúrgica",
+      company: "Indústria",
       rating: 5,
       text: "A SoluSix é nossa parceira de confiança há anos. Produtos técnicos de excelência.",
       avatar: "/assets/avatar-4.jpg",
@@ -39,7 +39,7 @@ export function Testimonials() {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="depoimentos" className="py-20 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -108,24 +108,51 @@ export function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="text-center mt-16"
         >
-          <p className="text-lg text-gray-600 mb-4">
+          <p className="text-xl text-navy font-semibold mb-8">
             Junte-se aos nossos clientes satisfeitos
           </p>
-          <div className="flex justify-center gap-4">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-lime">500+</div>
-              <div className="text-sm text-gray-500">Clientes ativos</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-lime">4.9/5</div>
-              <div className="text-sm text-gray-500">Avaliação média</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-lime">98%</div>
-              <div className="text-sm text-gray-500">Satisfação</div>
-            </div>
+          <div className="flex justify-center gap-12">
+            <motion.div 
+              className="text-center group"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1, y: -5 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent text-5xl font-black mb-3 group-hover:from-blue-500 group-hover:to-purple-500 transition-all duration-300">
+                500+
+              </div>
+              <div className="text-sm text-gray-600 font-semibold uppercase tracking-wide">Clientes ativos</div>
+            </motion.div>
+            <motion.div 
+              className="text-center group"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1, y: -5 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-gradient-to-br from-green-600 to-emerald-600 bg-clip-text text-transparent text-5xl font-black mb-3 group-hover:from-green-500 group-hover:to-emerald-500 transition-all duration-300">
+                4.9/5
+              </div>
+              <div className="text-sm text-gray-600 font-semibold uppercase tracking-wide">Avaliação média</div>
+            </motion.div>
+            <motion.div 
+              className="text-center group"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1, y: -5 }}
+              transition={{ duration: 0.3, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-gradient-to-br from-orange-600 to-red-600 bg-clip-text text-transparent text-5xl font-black mb-3 group-hover:from-orange-500 group-hover:to-red-500 transition-all duration-300">
+                98%
+              </div>
+              <div className="text-sm text-gray-600 font-semibold uppercase tracking-wide">Satisfação</div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

@@ -7,12 +7,41 @@ import {
   trackEvent,
 } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShoppingCart, Truck, Star } from "lucide-react";
+import { X, ShoppingCart, Truck, Star, MessageCircle, ExternalLink } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 /** Purpose: Modal component for detailed product view */
+interface DetailedInfo {
+  embalagem: string;
+  diluicao: {
+    dosadorVelocidade: string;
+    dosadorConcentracao: string;
+  };
+  rendimento: string;
+  destinatarios: string[];
+  composicao: string;
+  cuidados: string[];
+  regulamentacoes: string[];
+  armazenamento: string[];
+}
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  description: string;
+  features?: string[];
+  specs?: Record<string, string | undefined>;
+  pricePerLiter?: number;
+  isNew?: boolean;
+  detailedInfo?: DetailedInfo;
+}
+
 interface ProductModalProps {
-  product: any;
+  product: Product;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -21,15 +50,41 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
   const [quantity, setQuantity] = useState(1);
 
   const handleWhatsAppOrder = () => {
-    const message = generateWhatsAppMessage(product, quantity);
+    const discountedPrice = product.price * 0.9; // 10% desconto
+    const message = generateWhatsAppMessage(product, quantity, discountedPrice);
     trackEvent("product_whatsapp_order", {
       product_id: product.id,
       quantity,
-      price: product.price,
+      price: discountedPrice,
+      discount: 10,
     });
     openWhatsApp(message);
     onClose();
   };
+
+  const handleMercadoLivreOrder = () => {
+    trackEvent("product_mercadolivre_order", {
+      product_id: product.id,
+      quantity,
+      price: product.price,
+    });
+    // Redirecionar para Mercado Livre (você precisará criar o anúncio)
+    window.open(`https://www.mercadolivre.com.br/...`, "_blank");
+    onClose();
+  };
+
+  const handleShopeeOrder = () => {
+    trackEvent("product_shopee_order", {
+      product_id: product.id,
+      quantity,
+      price: product.price,
+    });
+    // Redirecionar para Shopee (você precisará criar o anúncio)
+    window.open(`https://www.shopee.com.br/...`, "_blank");
+    onClose();
+  };
+
+  const whatsappPrice = product.price * 0.9; // 10% desconto
 
   const discount = product.originalPrice
     ? Math.round(
@@ -69,22 +124,19 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Product Image */}
                 <div className="space-y-4">
-                  <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center">
-                    {/* TODO: Replace with actual product image */}
-                    <div className="text-gray-400 text-center">
-                      <div className="text-2xl mb-2">📦</div>
-                      <div className="text-sm">Imagem do produto</div>
-                    </div>
+                  <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority={false}
+                      unoptimized={false}
+                    />
                   </div>
 
-                  {/* Badges */}
-                  <div className="flex gap-2">
-                    {product.isNew && <Badge variant="new">NEW</Badge>}
-                    {discount > 0 && (
-                      <Badge variant="off">-{discount}% OFF</Badge>
-                    )}
-                    <Badge variant="premium">Premium</Badge>
-                  </div>
+
                 </div>
 
                 {/* Product Details */}
@@ -101,6 +153,16 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
                         </span>
                       )}
                     </div>
+                    
+                    {/* Volume Badge */}
+                    {product.specs?.volume && (
+                      <div className="mb-3">
+                        <Badge variant="default" className="bg-blue-100 text-blue-800 text-sm">
+                          Volume: {product.specs.volume}
+                        </Badge>
+                      </div>
+                    )}
+                    
                     <p className="text-gray-600">{product.description}</p>
                   </div>
 
@@ -147,6 +209,95 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
                     </div>
                   )}
 
+                  {/* Detailed Information */}
+                  {product.detailedInfo && (
+                    <div className="space-y-6">
+                      {/* Embalagem */}
+                      <div>
+                        <h3 className="font-semibold text-navy mb-2">Embalagem</h3>
+                        <p className="text-gray-600">{product.detailedInfo.embalagem}</p>
+                      </div>
+
+                      {/* Diluição */}
+                      <div>
+                        <h3 className="font-semibold text-navy mb-2">Diluição</h3>
+                        <div className="space-y-2">
+                          <div className="bg-gray-50 p-3 rounded-lg">
+                            <div className="text-sm text-gray-500">Dosador de velocidade</div>
+                            <div className="font-medium text-navy">{product.detailedInfo.diluicao.dosadorVelocidade}</div>
+                          </div>
+                          <div className="bg-gray-50 p-3 rounded-lg">
+                            <div className="text-sm text-gray-500">Dosador de concentração</div>
+                            <div className="font-medium text-navy">{product.detailedInfo.diluicao.dosadorConcentracao}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Rendimento */}
+                      <div>
+                        <h3 className="font-semibold text-navy mb-2">Rendimento</h3>
+                        <p className="text-gray-600">{product.detailedInfo.rendimento}</p>
+                      </div>
+
+                      {/* A Quem se Destina */}
+                      <div>
+                        <h3 className="font-semibold text-navy mb-2">A Quem se Destina</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {product.detailedInfo.destinatarios.map((destinatario, index) => (
+                            <span key={index} className="bg-lime/20 text-navy px-2 py-1 rounded-full text-sm">
+                              {destinatario}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Composição Química */}
+                      <div>
+                        <h3 className="font-semibold text-navy mb-2">Composição Química</h3>
+                        <p className="text-gray-600">{product.detailedInfo.composicao}</p>
+                      </div>
+
+                      {/* Cuidados */}
+                      <div>
+                        <h3 className="font-semibold text-navy mb-2">Cuidados</h3>
+                        <ul className="space-y-1">
+                          {product.detailedInfo.cuidados.map((cuidado, index) => (
+                            <li key={index} className="text-gray-600 text-sm flex items-start gap-2">
+                              <span className="text-red-500 mt-1">⚠</span>
+                              {cuidado}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Regulamentações */}
+                      <div>
+                        <h3 className="font-semibold text-navy mb-2">Regulamentações</h3>
+                        <ul className="space-y-1">
+                          {product.detailedInfo.regulamentacoes.map((regulamentacao, index) => (
+                            <li key={index} className="text-gray-600 text-sm flex items-start gap-2">
+                              <span className="text-green-500 mt-1">✓</span>
+                              {regulamentacao}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Armazenamento */}
+                      <div>
+                        <h3 className="font-semibold text-navy mb-2">Armazenamento</h3>
+                        <ul className="space-y-1">
+                          {product.detailedInfo.armazenamento.map((item, index) => (
+                            <li key={index} className="text-gray-600 text-sm flex items-start gap-2">
+                              <span className="text-blue-500 mt-1">📦</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Price per liter table */}
                   <div>
                     <h3 className="font-semibold text-navy mb-3">
@@ -156,7 +307,7 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">{product.name}</span>
                         <span className="font-bold text-navy">
-                          {formatCurrency(product.pricePerLiter)}/L
+                          {product.pricePerLiter ? formatCurrency(product.pricePerLiter) : 'N/A'}/L
                         </span>
                       </div>
                     </div>
@@ -187,19 +338,58 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
                       </div>
                     </div>
 
+                    {/* WhatsApp Order - Com desconto */}
+                    <div className="space-y-2">
+                      <Button
+                        onClick={handleWhatsAppOrder}
+                        variant="primary"
+                        size="lg"
+                        className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600"
+                      >
+                        <MessageCircle className="w-5 h-5" />
+                        Pedir via WhatsApp
+                      </Button>
+                      <div className="text-center">
+                        <span className="text-sm text-gray-600 line-through">
+                          {formatCurrency(product.price * quantity)}
+                        </span>
+                        <span className="text-sm font-bold text-green-600 ml-2">
+                          {formatCurrency(whatsappPrice * quantity)} (10% OFF)
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Mercado Livre */}
                     <Button
-                      onClick={handleWhatsAppOrder}
-                      variant="primary"
+                      onClick={handleMercadoLivreOrder}
+                      variant="outline"
                       size="lg"
-                      className="w-full flex items-center justify-center gap-2"
+                      className="w-full flex items-center justify-center gap-2 border-yellow-400 text-yellow-600 hover:bg-yellow-50"
                     >
-                      <ShoppingCart className="w-5 h-5" />
-                      Pedir via WhatsApp
+                      <ExternalLink className="w-5 h-5" />
+                      Comprar no Mercado Livre
                     </Button>
 
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                    {/* Shopee */}
+                    <Button
+                      onClick={handleShopeeOrder}
+                      variant="outline"
+                      size="lg"
+                      className="w-full flex items-center justify-center gap-2 border-orange-400 text-orange-600 hover:bg-orange-50"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      Comprar na Shopee
+                    </Button>
+
+                    {/* Entrega Info */}
+                    <div className="flex items-center gap-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
                       <Truck className="w-4 h-4 text-lime" />
-                      Entrega em 48h nas capitais
+                      <div>
+                        <div className="font-medium">Entrega via:</div>
+                        <div className="text-xs">• WhatsApp: Retirada em domicílio ou envio pelos Correios</div>
+                        <div className="text-xs">• Mercado Livre: Entrega da plataforma</div>
+                        <div className="text-xs">• Shopee: Entrega da plataforma</div>
+                      </div>
                     </div>
                   </div>
                 </div>

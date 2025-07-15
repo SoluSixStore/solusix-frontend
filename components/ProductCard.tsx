@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/Badge";
 import { formatCurrency } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
+import Image from "next/image";
 
 /** Purpose: Product card component for catalog display */
 interface ProductCardProps {
@@ -13,6 +14,7 @@ interface ProductCardProps {
     image: string;
     isNew?: boolean;
     description: string;
+    specs?: Record<string, string | undefined>;
   };
   onProductClick: (product: any) => void;
   onWhatsAppClick: (product: any) => void;
@@ -23,12 +25,6 @@ export function ProductCard({
   onProductClick,
   onWhatsAppClick,
 }: ProductCardProps) {
-  const discount = product.originalPrice
-    ? Math.round(
-        ((product.originalPrice - product.price) / product.originalPrice) * 100,
-      )
-    : 0;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -37,17 +33,24 @@ export function ProductCard({
       viewport={{ once: true }}
       className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 card-hover overflow-hidden group"
     >
-      {/* Product Image */}
-      <div className="relative aspect-square overflow-hidden">
-        <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-          {/* TODO: Replace with actual product image */}
-          <div className="text-gray-400 text-sm">Imagem do produto</div>
-        </div>
+      {/* Product Image - Clickable */}
+      <div 
+        className="relative aspect-square overflow-hidden cursor-pointer"
+        onClick={() => onProductClick(product)}
+      >
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+          priority={false}
+          unoptimized={false}
+        />
 
-        {/* Badges */}
-        <div className="absolute top-4 left-4 flex flex-col gap-2">
-          {product.isNew && <Badge variant="new">NEW</Badge>}
-          {discount > 0 && <Badge variant="off">-{discount}%</Badge>}
+        {/* WhatsApp Discount Badge - Better positioned */}
+        <div className="absolute top-4 right-4">
+          <Badge variant="off" className="text-xs bg-red-500 text-white">-10% WhatsApp</Badge>
         </div>
       </div>
 
@@ -57,12 +60,21 @@ export function ProductCard({
           {product.name}
         </h3>
 
+        {/* Volume Badge */}
+        {product.specs?.volume && (
+          <div className="mb-2">
+            <Badge variant="default" className="bg-blue-100 text-blue-800 text-xs">
+              {product.specs.volume}
+            </Badge>
+          </div>
+        )}
+
         <p className="text-gray-600 text-sm mb-4 line-clamp-2">
           {product.description}
         </p>
 
         {/* Price */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-center mb-4">
           <div className="flex items-center gap-2">
             <span className="text-2xl font-bold text-navy">
               {formatCurrency(product.price)}

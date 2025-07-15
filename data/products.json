@@ -1,55 +1,149 @@
 {
   "products": [
     {
-      "id": "detergente-premium",
-      "name": "Detergente Premium",
-      "slug": "detergente-premium",
-      "price": 79.0,
+      "id": "detergente-premium-5l",
+      "name": "Detergente para Máquina de Lavar Louças - Maq-wash",
+      "slug": "detergente-premium-5l",
+      "price": 63.90,
       "originalPrice": 89.0,
-      "image": "/assets/product-detergente.jpg",
-      "tags": ["limpeza", "detergente", "premium"],
+      "image": "/produtos/detergente-para-maquina-de-lavar-loucas-maq-wash-5-l.webp",
+      "tags": ["limpeza", "detergente", "premium", "maquina-loucas"],
       "category": "limpeza",
-      "description": "Detergente profissional de alta performance para limpeza pesada",
+      "description": "Detergente lava-louças de 5 litros (5L) utilizado para higienizar louças e utensílios em máquinas de lavar louças profissionais, através de equipamentos dosadores específicos.",
       "features": [
-        "Concentrado premium",
-        "Rendimento superior",
-        "Biodegradável",
-        "5L por galão"
+        "Concentrado premium para máquinas profissionais",
+        "Rendimento superior: 625 a 1.250 ciclos por galão",
+        "Dosagem automática via equipamentos específicos",
+        "Registrado na ANVISA/MS"
       ],
       "specs": {
         "volume": "5L",
-        "rendimento": "Até 200 lavagens",
-        "pH": "Neutro",
-        "fragrância": "Limão fresco"
+        "rendimento": "625-1.250 ciclos",
+        "diluição": "4-8ml por ciclo",
+        "concentração": "0,5% a 2,0%",
+        "pH": "Alcalino",
+        "validade": "2 anos",
+        "fabricante": "Silver Chemical"
       },
-      "pricePerLiter": 15.8,
+      "pricePerLiter": 12.78,
       "isNew": true,
       "isB2B": true,
-      "isB2C": true
+      "isB2C": true,
+      "detailedInfo": {
+        "embalagem": "1 galão de 5L",
+        "diluicao": {
+          "dosadorVelocidade": "4 a 8 ml por ciclo de lavagem",
+          "dosadorConcentracao": "0,5% a 2,0% sobre a capacidade nominal da máquina"
+        },
+        "rendimento": "Cada galão de 5L do produto concentrado rende de 625 a 1.250 ciclos de lavagem (para máquinas que não acionam os produtos no enchimento)",
+        "destinatarios": [
+          "Restaurantes", "bares", "lanchonetes", "cafeterias", "hotéis", "resorts", 
+          "fábricas", "indústrias alimentícias", "refeitórios", "praças de alimentação", 
+          "escolas", "copas"
+        ],
+        "composicao": "Hidróxido de sódio, agente alcalinizante, sequestrante, água",
+        "cuidados": [
+          "Utilize os equipamentos de segurança pessoal e EPI's ao manipular o produto",
+          "Luvas, óculos de proteção, avental de PVC e botas de borracha",
+          "Não inale vapores, impeça contato com os olhos, pele e roupas"
+        ],
+        "regulamentacoes": [
+          "Produto registrado na ANVISA/MS",
+          "Produto não classificado como perigoso para utilizadores",
+          "Produto com todas as documentações: Fispq e Ficha Técnica"
+        ],
+        "armazenamento": [
+          "Manter o produto em sua embalagem original",
+          "Condições de armazenamento adequadas: Ambiente seco e isento de umidade",
+          "Evitar: temperaturas extremas ou luz solar direta"
+        ]
+      }
+    },
+    {
+      "id": "detergente-premium-20l",
+      "name": "Detergente para Máquina de Lavar Louças - Maq-wash",
+      "slug": "detergente-premium-20l",
+      "price": 305.00,
+      "originalPrice": 356.0,
+      "image": "/produtos/detergente-para-maquina-de-lavar-loucas-maq-wash-20-l.jpg",
+      "tags": ["limpeza", "detergente", "premium", "maquina-loucas"],
+      "category": "limpeza",
+      "description": "Detergente lava-louças de 20 litros (20L) utilizado para higienizar louças e utensílios em máquinas de lavar louças profissionais, através de equipamentos dosadores específicos.",
+      "features": [
+        "Concentrado premium para máquinas profissionais",
+        "Rendimento superior: 2.500 a 5.000 ciclos por galão",
+        "Dosagem automática via equipamentos específicos",
+        "Registrado na ANVISA/MS"
+      ],
+      "specs": {
+        "volume": "20L",
+        "rendimento": "2.500-5.000 ciclos",
+        "diluição": "4-8ml por ciclo",
+        "concentração": "0,5% a 2,0%",
+        "pH": "Alcalino",
+        "validade": "2 anos",
+        "fabricante": "Silver Chemical"
+      },
+      "pricePerLiter": 15.25,
+      "isNew": true,
+      "isB2B": true,
+      "isB2C": true,
+      "detailedInfo": {
+        "embalagem": "1 galão de 20L",
+        "diluicao": {
+          "dosadorVelocidade": "4 a 8 ml por ciclo de lavagem",
+          "dosadorConcentracao": "0,5% a 2,0% sobre a capacidade nominal da máquina"
+        },
+        "rendimento": "Cada galão de 20L do produto concentrado rende de 2.500 a 5.000 ciclos de lavagem (para máquinas que não acionam os produtos no enchimento)",
+        "destinatarios": [
+          "Restaurantes", "bares", "lanchonetes", "cafeterias", "hotéis", "resorts", 
+          "fábricas", "indústrias alimentícias", "refeitórios", "praças de alimentação", 
+          "escolas", "copas"
+        ],
+        "composicao": "Hidróxido de sódio, agente alcalinizante, sequestrante, água",
+        "cuidados": [
+          "Utilize os equipamentos de segurança pessoal e EPI's ao manipular o produto",
+          "Luvas, óculos de proteção, avental de PVC e botas de borracha",
+          "Não inale vapores, impeça contato com os olhos, pele e roupas"
+        ],
+        "regulamentacoes": [
+          "Produto registrado na ANVISA/MS",
+          "Produto não classificado como perigoso para utilizadores",
+          "Produto com todas as documentações: Fispq e Ficha Técnica"
+        ],
+        "armazenamento": [
+          "Manter o produto em sua embalagem original",
+          "Condições de armazenamento adequadas: Ambiente seco e isento de umidade",
+          "Evitar: temperaturas extremas ou luz solar direta"
+        ]
+      }
     },
     {
       "id": "secante-profissional",
-      "name": "Secante Profissional",
+      "name": "Secante e abrilhantador para lava louças - Maq rinse",
       "slug": "secante-profissional",
       "price": 89.0,
       "originalPrice": 99.0,
-      "image": "/assets/product-secante.jpg",
-      "tags": ["limpeza", "secante", "profissional"],
+      "image": "/produtos/Secante-e-abrilhantador-para-lava-loucas-maq-rinse-5l.jpg",
+      "tags": ["limpeza", "secante", "abrilhantador", "profissional"],
       "category": "limpeza",
-      "description": "Secante de alta qualidade para uso profissional",
+      "description": "Secante e abrilhantador para lava-louças – Maq-Rinse de 5 litros (5L)",
       "features": [
+        "Brilho perfeito",
         "Secagem rápida",
-        "Não deixa resíduos",
-        "Ideal para cozinhas",
-        "10L por galão"
+        "Anti-manchas",
+        "Alto rendimento",
+        "Compatível com máquinas: Brastemp, Electrolux, Consul, Ecomax, Hobart, Netter, MVF e similares"
       ],
       "specs": {
-        "volume": "10L",
-        "rendimento": "Até 150 aplicações",
-        "pH": "Alcalino",
-        "fragrância": "Neutro"
+        "volume": "5L",
+        "rendimento": "Até 2.500 ciclos de lavagem",
+        "diluição": "2-4ml por ciclo",
+        "concentração": "0,2% a 0,4%",
+        "pH": "Neutro",
+        "aplicação": "Via dosadores eletrônicos na etapa de enxágue"
       },
-      "pricePerLiter": 8.9,
+      "pricePerLiter": 17.8,
       "isNew": false,
       "isB2B": true,
       "isB2C": true
