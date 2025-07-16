@@ -3,7 +3,12 @@ import { Resend } from 'resend';
 import { sendContactEmail } from '@/lib/email';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log('📧 Contact API called:', { method: req.method, body: req.body });
+  console.log('📧 Contact API called:', { 
+    method: req.method, 
+    body: req.body,
+    env: process.env.NODE_ENV,
+    timestamp: new Date().toISOString()
+  });
 
   if (req.method !== 'POST') {
     console.log('❌ Method not allowed:', req.method);
@@ -31,6 +36,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Verificar se temos a API key do Resend
     const resendApiKey = process.env.RESEND_API_KEY;
     
+<<<<<<< HEAD
+=======
+    console.log('🔍 Environment check:', {
+      NODE_ENV: process.env.NODE_ENV,
+      hasResendKey: !!resendApiKey,
+      resendKeyLength: resendApiKey?.length || 0,
+      resendKeyStart: resendApiKey?.substring(0, 10) + '...' || 'N/A'
+    });
+    
+>>>>>>> dev
     if (!resendApiKey) {
       console.error('❌ RESEND_API_KEY not configured');
       return res.status(500).json({ 
@@ -39,8 +54,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     }
 
+<<<<<<< HEAD
     console.log('🔍 Using API key:', resendApiKey.substring(0, 10) + '...');
     
+=======
+>>>>>>> dev
     // Tentar enviar via Resend
     try {
       console.log('🔄 Trying Resend...');
@@ -118,12 +136,24 @@ Enviado via formulário de contato do site SoluSix
         
       } catch (smtpError) {
         console.error('❌ SMTP fallback also failed:', smtpError);
+<<<<<<< HEAD
         
         return res.status(500).json({ 
           error: 'Erro ao enviar e-mail',
           details: process.env.NODE_ENV === 'development' 
             ? `Resend: ${resendError instanceof Error ? resendError.message : 'Unknown error'}, SMTP: ${smtpError instanceof Error ? smtpError.message : 'Unknown error'}`
             : 'Tente novamente em alguns instantes.'
+=======
+        
+        // Retornar erro mais detalhado em desenvolvimento
+        const errorDetails = process.env.NODE_ENV === 'development' 
+          ? `Resend: ${resendError instanceof Error ? resendError.message : 'Unknown error'}, SMTP: ${smtpError instanceof Error ? smtpError.message : 'Unknown error'}`
+          : 'Tente novamente em alguns instantes.';
+        
+        return res.status(500).json({ 
+          error: 'Erro ao enviar e-mail',
+          details: errorDetails
+>>>>>>> dev
         });
       }
     }
