@@ -71,22 +71,22 @@ ${message}
 Enviado via formulário de contato do site SoluSix
         `.trim(),
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #1f2937; border-bottom: 2px solid #84cc16; padding-bottom: 10px;">
+          <div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;\">
+            <h2 style=\"color: #1f2937; border-bottom: 2px solid #84cc16; padding-bottom: 10px;\">
               Novo contato via formulário
             </h2>
             
-            <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <div style=\"background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;\">
               <p><strong>Nome:</strong> ${name}</p>
               <p><strong>E-mail:</strong> ${email}</p>
               <p><strong>Mensagem:</strong></p>
-              <div style="background: white; padding: 15px; border-radius: 4px; border-left: 4px solid #84cc16;">
+              <div style=\"background: white; padding: 15px; border-radius: 4px; border-left: 4px solid #84cc16;\">
                 ${message.replace(/\n/g, '<br>')}
               </div>
             </div>
             
-            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
-            <p style="color: #6b7280; font-size: 14px;">
+            <hr style=\"border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;\">
+            <p style=\"color: #6b7280; font-size: 14px;\">
               <em>Enviado via formulário de contato do site SoluSix</em>
             </p>
           </div>
