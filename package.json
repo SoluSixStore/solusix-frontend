@@ -15,7 +15,8 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:secrets": "gitleaks detect --source . --verbose",
-    "security:scan": "gitleaks detect --source . --report-format json --report-path gitleaks-report.json"
+    "security:scan": "gitleaks detect --source . --report-format json --report-path gitleaks-report.json",
+    "test:email": "node scripts/test-email.js"
   },
   "dependencies": {
     "@21st-extension/react": "^0.5.14",
@@ -45,6 +46,7 @@
     "@types/react-dom": "^18.3.7",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.0",
+    "dotenv": "^16.3.1",
     "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.30",
     "jest": "^29.7.0",
