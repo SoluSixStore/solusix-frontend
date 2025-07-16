@@ -27,20 +27,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     console.log('📤 Attempting to send email...');
-    console.log('🔍 RESEND_API_KEY from env:', process.env.RESEND_API_KEY?.substring(0, 10) + '...');
     
-    // Primeiro tentar Resend
-    if (process.env.RESEND_API_KEY) {
-      try {
-        console.log('🔄 Trying Resend first...');
-        const resend = new Resend(process.env.RESEND_API_KEY);
-        
-        const { data, error } = await resend.emails.send({
-          from: 'SoluSix <contato@solusix.com.br>',
-          to: ['contato@solusix.com.br'],
-          subject: `Novo contato de ${name}`,
-          replyTo: email,
-          text: `
+    // Verificar se temos a API key do Resend
+    const resendApiKey = process.env.RESEND_API_KEY;
+    
+    if (!resendApiKey) {
+      console.error('❌ RESEND_API_KEY not configured');
+      return res.status(500).json({ 
+        error: 'Configuração de e-mail não encontrada',
+        details: 'RESEND_API_KEY não configurada no ambiente de produção'
+      });
+    }
+
+    console.log('🔍 Using API key:', resendApiKey.substring(0, 10) + '...');
+    
+    // Tentar enviar via Resend
+    try {
+      console.log('🔄 Trying Resend...');
+      const resend = new Resend(resendApiKey);
+      
+      const { data, error } = await resend.emails.send({
+        from: 'SoluSix <contato@solusix.com.br>',
+        to: ['contato@solusix.com.br'],
+        subject: `Novo contato de ${name}`,
+        replyTo: email,
+        text: `
 Nome: ${name}
 E-mail: ${email}
 Mensagem:
@@ -48,56 +59,74 @@ ${message}
 
 ---
 Enviado via formulário de contato do site SoluSix
-          `.trim(),
-          html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h2 style="color: #1f2937; border-bottom: 2px solid #84cc16; padding-bottom: 10px;">
-                Novo contato via formulário
-              </h2>
-              
-              <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <p><strong>Nome:</strong> ${name}</p>
-                <p><strong>E-mail:</strong> ${email}</p>
-                <p><strong>Mensagem:</strong></p>
-                <div style="background: white; padding: 15px; border-radius: 4px; border-left: 4px solid #84cc16;">
-                  ${message.replace(/\n/g, '<br>')}
-                </div>
+        `.trim(),
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #1f2937; border-bottom: 2px solid #84cc16; padding-bottom: 10px;">
+              Novo contato via formulário
+            </h2>
+            
+            <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <p><strong>Nome:</strong> ${name}</p>
+              <p><strong>E-mail:</strong> ${email}</p>
+              <p><strong>Mensagem:</strong></p>
+              <div style="background: white; padding: 15px; border-radius: 4px; border-left: 4px solid #84cc16;">
+                ${message.replace(/\n/g, '<br>')}
               </div>
-              
-              <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
-              <p style="color: #6b7280; font-size: 14px;">
-                <em>Enviado via formulário de contato do site SoluSix</em>
-              </p>
             </div>
-          `
-        });
+            
+            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
+            <p style="color: #6b7280; font-size: 14px;">
+              <em>Enviado via formulário de contato do site SoluSix</em>
+            </p>
+          </div>
+        `
+      });
 
-        if (error) {
-          throw new Error(`Resend error: ${error.message}`);
-        }
+      if (error) {
+        console.error('❌ Resend error:', error);
+        throw new Error(`Resend error: ${error.message}`);
+      }
 
-        console.log('✅ Email sent successfully via Resend:', { id: data?.id });
+      console.log('✅ Email sent successfully via Resend:', { id: data?.id });
+      
+      return res.status(200).json({ 
+        ok: true, 
+        messageId: data?.id,
+        method: 'resend'
+      });
+
+    } catch (resendError) {
+      console.error('❌ Resend failed:', resendError);
+      
+      // Se Resend falhar, tentar SMTP como fallback
+      console.log('🔄 Trying SMTP fallback...');
+      
+      try {
+        const smtpResult = await sendContactEmail({ name, email, message });
         
-        return res.status(200).json({ 
-          ok: true, 
-          messageId: data?.id,
-          method: 'resend'
-        });
-
-      } catch (resendError) {
-        console.error('❌ Resend failed:', resendError);
+        if (smtpResult.success) {
+          console.log('✅ Email sent successfully via SMTP:', { messageId: smtpResult.messageId });
+          return res.status(200).json({ 
+            ok: true, 
+            messageId: smtpResult.messageId,
+            method: 'smtp'
+          });
+        } else {
+          throw new Error(smtpResult.error || 'SMTP fallback failed');
+        }
+        
+      } catch (smtpError) {
+        console.error('❌ SMTP fallback also failed:', smtpError);
+        
         return res.status(500).json({ 
-          error: 'Erro ao enviar e-mail via Resend',
-          details: resendError instanceof Error ? resendError.message : 'Unknown error'
+          error: 'Erro ao enviar e-mail',
+          details: process.env.NODE_ENV === 'development' 
+            ? `Resend: ${resendError instanceof Error ? resendError.message : 'Unknown error'}, SMTP: ${smtpError instanceof Error ? smtpError.message : 'Unknown error'}`
+            : 'Tente novamente em alguns instantes.'
         });
       }
     }
-
-    // Se não tem API key do Resend, retornar erro
-    return res.status(500).json({ 
-      error: 'Configuração de e-mail não encontrada',
-      details: 'RESEND_API_KEY não configurada'
-    });
 
   } catch (err) {
     console.error('❌ Email sending failed:', err);
