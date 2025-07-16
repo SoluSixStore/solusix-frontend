@@ -87,16 +87,78 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
 
 ## 📧 Configuração do Formulário de Contato
 
+### ⚠️ IMPORTANTE: Correção do Erro de E-mail em Produção
+
+O formulário de contato agora usa **Resend** como método principal e **SMTP** como fallback. Isso resolve o problema de envio de e-mails em produção.
+
 ### Variáveis de Ambiente Necessárias
 
-O formulário de contato requer as seguintes variáveis de ambiente:
+#### Método Principal: Resend (Recomendado)
+```env
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
 
+**Como obter a API key do Resend:**
+1. Acesse [resend.com](https://resend.com)
+2. Crie uma conta gratuita
+3. Vá em "API Keys" e crie uma nova chave
+4. Copie a chave (começa com `re_`)
+
+#### Método de Fallback: SMTP
 ```env
 SMTP_HOST=smtp.gmail.com          # Servidor SMTP
 SMTP_PORT=587                     # Porta (587 para TLS, 465 para SSL)
 SMTP_USER=seu-email@gmail.com     # Seu e-mail
 SMTP_PASS=sua-senha-de-app        # Senha de app (Gmail)
 ```
+
+### Testando a Configuração
+
+#### Localmente
+```bash
+# Instalar dependências
+npm install
+
+# Testar configuração de e-mail
+npm run test:email
+```
+
+#### Via API (apenas em desenvolvimento)
+```bash
+curl -X POST http://localhost:3000/api/test-email-config
+```
+
+### Configuração em Produção (Vercel)
+
+1. **Acesse o dashboard do Vercel**
+2. **Vá para seu projeto**
+3. **Clique em "Settings" → "Environment Variables"**
+4. **Adicione as variáveis:**
+
+```env
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=contato@solusix.com.br
+SMTP_PASS=sua-senha-de-app-do-gmail
+```
+
+5. **Redeploy o projeto**
+
+### Troubleshooting
+
+#### Erro: "Configuração de e-mail não encontrada"
+- ✅ Verifique se `RESEND_API_KEY` está configurada no Vercel
+- ✅ Confirme se a API key é válida (teste em [resend.com](https://resend.com))
+- ✅ Verifique se o domínio `contato@solusix.com.br` está verificado no Resend
+
+#### Erro: "Erro ao enviar e-mail via Resend"
+- ✅ Verifique se a API key não expirou
+- ✅ Confirme se o domínio remetente está configurado no Resend
+- ✅ Verifique os logs do Vercel para detalhes do erro
+
+#### Fallback SMTP
+Se o Resend falhar, o sistema tentará usar SMTP como backup. Certifique-se de que as variáveis SMTP estão configuradas.
 
 ### Provedores SMTP Suportados
 
@@ -105,28 +167,24 @@ SMTP_PASS=sua-senha-de-app        # Senha de app (Gmail)
 - **Yahoo**: `smtp.mail.yahoo.com:587`
 - **Provedor local**: Consulte seu provedor
 
-### Testando a Configuração
+### Logs e Debug
 
-Em desenvolvimento, você pode testar a configuração de e-mail:
+O sistema agora inclui logs detalhados para debug:
 
-```bash
-# Via API (apenas em desenvolvimento)
-curl -X POST http://localhost:3000/api/test-email
+```javascript
+// Logs no console do Vercel
+📧 Contact API called: { method: 'POST', body: {...} }
+📤 Attempting to send email...
+🔍 Using API key: re_Yp9p6UVV...
+🔄 Trying Resend...
+✅ Email sent successfully via Resend: { id: 'abc123' }
 ```
 
-### Troubleshooting
+### Segurança
 
-**Erro de autenticação**:
-- Verifique se está usando senha de app (Gmail)
-- Confirme se o e-mail e senha estão corretos
-
-**Erro de conexão**:
-- Verifique se o host e porta estão corretos
-- Teste se o provedor permite conexões SMTP
-
-**Timeout**:
-- Verifique sua conexão com a internet
-- Alguns provedores podem ter delays
+- ✅ API keys são armazenadas como variáveis de ambiente
+- ✅ Nenhuma credencial hardcoded no código
+- ✅ Logs não expõem informações sensíveis em produção
 
 ## 🚀 Deploy
 
