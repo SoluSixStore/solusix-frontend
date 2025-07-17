@@ -12,6 +12,10 @@ import { HowItWorks } from "@/components/sections/HowItWorks";
 import { AutoReposicao } from "@/components/sections/AutoReposicao";
 import { FAQ } from "@/components/sections/FAQ";
 import { Footer } from "@/components/Footer";
+import PoliticaPrivacidadeModal from "@/components/PoliticaPrivacidadeModal";
+import TermosUsoModal from "@/components/TermosUsoModal";
+import PoliticaFreteModal from "@/components/PoliticaFreteModal";
+import TrocasDevolucoesModal from "@/components/TrocasDevolucoesModal";
 // import { LeadMagnetForm } from "@/components/LeadMagnetForm";
 import TestToolbar from "./test-toolbar";
 
@@ -70,6 +74,10 @@ import TestToolbar from "./test-toolbar";
  * e maximiza a probabilidade de conversão em cada etapa do funil.
  */
 export default function Home() {
+  const [showPoliticaPrivacidade, setShowPoliticaPrivacidade] = useState(false);
+  const [showTermosUso, setShowTermosUso] = useState(false);
+  const [showPoliticaFrete, setShowPoliticaFrete] = useState(false);
+  const [showTrocasDevolucoes, setShowTrocasDevolucoes] = useState(false);
   // const [showLeadMagnet, setShowLeadMagnet] = useState(false);
 
   // // Exit-intent detection for lead magnet
@@ -126,7 +134,16 @@ export default function Home() {
       {/* 9. CONTATO - Chamada final para ação */}
       <ContatoSection />
 
-      <Footer />
+      <PoliticaPrivacidadeModal isOpen={showPoliticaPrivacidade} onClose={() => setShowPoliticaPrivacidade(false)} />
+      <TermosUsoModal isOpen={showTermosUso} onClose={() => setShowTermosUso(false)} />
+      <PoliticaFreteModal isOpen={showPoliticaFrete} onClose={() => setShowPoliticaFrete(false)} />
+      <TrocasDevolucoesModal isOpen={showTrocasDevolucoes} onClose={() => setShowTrocasDevolucoes(false)} />
+      <Footer
+        onOpenPoliticaPrivacidade={() => setShowPoliticaPrivacidade(true)}
+        onOpenTermosUso={() => setShowTermosUso(true)}
+        onOpenPoliticaFrete={() => setShowPoliticaFrete(true)}
+        onOpenTrocasDevolucoes={() => setShowTrocasDevolucoes(true)}
+      />
 
       {/* Lead Magnet Form */}
       {/* <LeadMagnetForm

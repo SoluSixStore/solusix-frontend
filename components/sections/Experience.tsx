@@ -1,8 +1,61 @@
 import { motion } from "framer-motion";
 import { Award, Calendar, TrendingUp } from "lucide-react";
+import { useState, useEffect } from "react";
 
 /** Purpose: Experience section highlighting partners' expertise and SoluSix foundation */
 export function Experience() {
+  const [years, setYears] = useState(0);
+  const [partners, setPartners] = useState(0);
+  const [areas, setAreas] = useState(0);
+  const [yearsComplete, setYearsComplete] = useState(false);
+  const [partnersComplete, setPartnersComplete] = useState(false);
+  const [areasComplete, setAreasComplete] = useState(false);
+
+  // Animate counters
+  useEffect(() => {
+    const animateCounters = () => {
+      // Animate years (30+)
+      const yearsTimer = setInterval(() => {
+        setYears(prev => {
+          if (prev >= 30) {
+            clearInterval(yearsTimer);
+            setYearsComplete(true);
+            return 30;
+          }
+          return prev + 1;
+        });
+      }, 150);
+
+      // Animate partners (6)
+      const partnersTimer = setInterval(() => {
+        setPartners(prev => {
+          if (prev >= 6) {
+            clearInterval(partnersTimer);
+            setPartnersComplete(true);
+            return 6;
+          }
+          return prev + 1;
+        });
+      }, 300);
+
+      // Animate areas (4)
+      const areasTimer = setInterval(() => {
+        setAreas(prev => {
+          if (prev >= 4) {
+            clearInterval(areasTimer);
+            setAreasComplete(true);
+            return 4;
+          }
+          return prev + 1;
+        });
+      }, 450);
+    };
+
+    // Start animation when component mounts
+    const timer = setTimeout(animateCounters, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const timeline = [
     {
       year: "1990",
@@ -107,18 +160,62 @@ export function Experience() {
           viewport={{ once: true }}
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8"
         >
-          <div className="text-center">
-            <div className="text-4xl font-bold text-lime mb-2">30+</div>
+          <motion.div 
+            className="text-center"
+            animate={yearsComplete ? {
+              scale: [1, 1.1, 1],
+              transition: { duration: 0.5, ease: "easeInOut" }
+            } : {}}
+          >
+            <motion.div 
+              className="text-4xl font-bold text-lime mb-2"
+              animate={yearsComplete ? {
+                textShadow: ["0 0 0px #10b981", "0 0 20px #10b981", "0 0 0px #10b981"],
+                transition: { duration: 1, ease: "easeInOut" }
+              } : {}}
+            >
+              {years}+
+            </motion.div>
             <div className="text-gray-300">Anos de experiência dos sócios</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-lime mb-2">6</div>
+          </motion.div>
+          
+          <motion.div 
+            className="text-center"
+            animate={partnersComplete ? {
+              scale: [1, 1.1, 1],
+              transition: { duration: 0.5, ease: "easeInOut" }
+            } : {}}
+          >
+            <motion.div 
+              className="text-4xl font-bold text-lime mb-2"
+              animate={partnersComplete ? {
+                textShadow: ["0 0 0px #10b981", "0 0 20px #10b981", "0 0 0px #10b981"],
+                transition: { duration: 1, ease: "easeInOut" }
+              } : {}}
+            >
+              {partners}
+            </motion.div>
             <div className="text-gray-300">Sócios especialistas</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-lime mb-2">4</div>
+          </motion.div>
+          
+          <motion.div 
+            className="text-center"
+            animate={areasComplete ? {
+              scale: [1, 1.1, 1],
+              transition: { duration: 0.5, ease: "easeInOut" }
+            } : {}}
+          >
+            <motion.div 
+              className="text-4xl font-bold text-lime mb-2"
+              animate={areasComplete ? {
+                textShadow: ["0 0 0px #10b981", "0 0 20px #10b981", "0 0 0px #10b981"],
+                transition: { duration: 1, ease: "easeInOut" }
+              } : {}}
+            >
+              {areas}
+            </motion.div>
             <div className="text-gray-300">Áreas de expertise</div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

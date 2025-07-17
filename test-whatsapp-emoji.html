@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste WhatsApp Emoji</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .message {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+            white-space: pre-line;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .url {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            margin: 20px 0;
+        }
+        .test-button {
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .test-button:hover {
+            background: #128C7E;
+        }
+        .emoji-test {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Teste de Emojis para WhatsApp</h1>
+        
+        <h2>Mensagem Atualizada (Sem Emojis):</h2>
+        <div class="emoji-test">
+            Formato limpo e profissional
+        </div>
+        
+        <h2>Mensagem Gerada:</h2>
+        <div class="message" id="message"></div>
+        
+        <h2>URL do WhatsApp:</h2>
+        <div class="url" id="url"></div>
+        
+        <h2>Testes:</h2>
+        <button class="test-button" onclick="testWhatsApp()">📱 Testar WhatsApp</button>
+        <button class="test-button" onclick="copyMessage()">📋 Copiar Mensagem</button>
+        <button class="test-button" onclick="copyURL()">🔗 Copiar URL</button>
+    </div>
+
+    <script>
+        function formatCurrency(value) {
+            return new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+            }).format(value);
+        }
+
+        function generateWhatsAppMessage(product, quantity) {
+            const totalSemDesconto = quantity * product.price;
+            const desconto = totalSemDesconto * 0.0499;
+            const totalComDesconto = totalSemDesconto - desconto;
+            const economia = totalSemDesconto - totalComDesconto;
+            
+            const nomeCompleto = product.specs?.volume 
+                ? `${product.name} ${product.specs.volume}`
+                : product.name;
+            
+            // Construir mensagem com todos os valores
+            let message = `Olá! Quero fazer um pedido pela SoluSix
+
+Produto: ${nomeCompleto}
+Quantidade: ${quantity} ${quantity === 1 ? 'unidade' : 'unidades'}
+Valor unitário: ${formatCurrency(product.price)}
+Total sem desconto: ${formatCurrency(totalSemDesconto)}
+Total com 4,99% de desconto por pedir via WhatsApp: ${formatCurrency(totalComDesconto)}`;
+
+            // Adicionar linha de economia apenas se for maior que R$ 0,00
+            if (economia > 0) {
+                message += `\nEconomia: ${formatCurrency(economia)}`;
+            }
+
+            message += `
+
+Já vou te enviar o meu endereço completo, só um momento.
+
+Aguardo o link de pagamento. Obrigado!`;
+
+            return message;
+        }
+
+        // Produto de teste (quantidade alta para mostrar economia)
+        const produtoTeste = {
+            name: "Secante e abrilhantador para lava louças – Maq-rinse",
+            price: 89.00,
+            specs: {
+                volume: "5L"
+            }
+        };
+
+        // Testar com quantidade alta para mostrar economia
+        const mensagem = generateWhatsAppMessage(produtoTeste, 15);
+
+
+        const url = `https://wa.me/5511957937762?text=${encodeURIComponent(mensagem)}`;
+
+        // Exibir na página
+        document.getElementById('message').textContent = mensagem;
+        document.getElementById('url').textContent = url;
+
+        function testWhatsApp() {
+            window.open(url, '_blank');
+        }
+
+        function copyMessage() {
+            navigator.clipboard.writeText(mensagem).then(() => {
+                alert('Mensagem copiada!');
+            });
+        }
+
+        function copyURL() {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('URL copiada!');
+            });
+        }
+    </script>
+</body>
+</html> 

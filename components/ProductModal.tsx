@@ -50,13 +50,12 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
   const [quantity, setQuantity] = useState(1);
 
   const handleWhatsAppOrder = () => {
-    const discountedPrice = product.price * 0.9; // 10% desconto
-    const message = generateWhatsAppMessage(product, quantity, discountedPrice);
+    const message = generateWhatsAppMessage(product, quantity);
     trackEvent("product_whatsapp_order", {
       product_id: product.id,
       quantity,
-      price: discountedPrice,
-      discount: 10,
+      price: product.price,
+      discount: 4.99,
     });
     openWhatsApp(message);
     onClose();
@@ -84,7 +83,10 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
     onClose();
   };
 
-  const whatsappPrice = product.price * 0.9; // 10% desconto
+  // Cálculo do desconto WhatsApp
+  const totalSemDesconto = product.price * quantity;
+  const descontoWhatsApp = totalSemDesconto * 0.0499;
+  const totalComDesconto = totalSemDesconto - descontoWhatsApp;
 
   const discount = product.originalPrice
     ? Math.round(
@@ -351,10 +353,10 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
                       </Button>
                       <div className="text-center">
                         <span className="text-sm text-gray-600 line-through">
-                          {formatCurrency(product.price * quantity)}
+                          {formatCurrency(totalSemDesconto)}
                         </span>
                         <span className="text-sm font-bold text-green-600 ml-2">
-                          {formatCurrency(whatsappPrice * quantity)} (10% OFF)
+                          {formatCurrency(totalComDesconto)} (4.99% OFF)
                         </span>
                       </div>
                     </div>

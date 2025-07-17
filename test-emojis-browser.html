@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Emojis - WhatsApp Message</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .message { white-space: pre-wrap; background: #f5f5f5; padding: 15px; border-radius: 5px; }
+        button { padding: 10px 20px; background: #25D366; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #128C7E; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste de Emojis na Mensagem do WhatsApp</h1>
+    
+    <div class="test">
+        <h3>📱 Emojis Individuais:</h3>
+        <p>👋 📦 🔢 💰 📉 😊</p>
+    </div>
+
+    <div class="test">
+        <h3>💬 Mensagem Completa:</h3>
+        <div class="message" id="message"></div>
+    </div>
+
+    <div class="test">
+        <h3>🔗 URL do WhatsApp:</h3>
+        <div id="url" style="word-break: break-all; background: #f0f0f0; padding: 10px; border-radius: 3px;"></div>
+    </div>
+
+    <div class="test">
+        <button onclick="testWhatsApp()">📱 Testar no WhatsApp</button>
+        <button onclick="copyMessage()">📋 Copiar Mensagem</button>
+    </div>
+
+    <script>
+        function formatCurrency(value) {
+            return new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+            }).format(value);
+        }
+
+        function generateWhatsAppMessage(product, quantity) {
+            const totalSemDesconto = quantity * product.price;
+            const desconto = totalSemDesconto * 0.0499;
+            const totalComDesconto = totalSemDesconto - desconto;
+            const economia = totalSemDesconto - totalComDesconto;
+            
+            const nomeCompleto = product.specs?.volume 
+                ? `${product.name} ${product.specs.volume}`
+                : product.name;
+            
+            // Construir mensagem com todos os valores
+            let message = `Olá! Quero fazer um pedido pela SoluSix
+
+Produto: ${nomeCompleto}
+Quantidade: ${quantity} ${quantity === 1 ? 'unidade' : 'unidades'}
+Valor unitário: ${formatCurrency(product.price)}
+Total sem desconto: ${formatCurrency(totalSemDesconto)}
+Total com 4,99% de desconto por pedir via WhatsApp: ${formatCurrency(totalComDesconto)}`;
+
+            // Adicionar linha de economia apenas se for maior que R$ 0,00
+            if (economia > 0) {
+                message += `\nEconomia: ${formatCurrency(economia)}`;
+            }
+
+            message += `
+
+Já vou te enviar o meu endereço completo, só um momento.
+
+Aguardo o link de pagamento. Obrigado!`;
+
+            return message;
+        }
+
+        const testProduct = {
+            name: "Detergente para Máquina de Lavar Louças - Maq-wash",
+            price: 63.90,
+            specs: { volume: "5L" }
+        };
+
+        const message = generateWhatsAppMessage(testProduct, 1);
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/+5511957937762?text=${encodedMessage}`;
+
+        document.getElementById('message').textContent = message;
+        document.getElementById('url').textContent = whatsappUrl;
+
+        function testWhatsApp() {
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function copyMessage() {
+            navigator.clipboard.writeText(message).then(() => {
+                alert('Mensagem copiada para a área de transferência!');
+            });
+        }
+
+        console.log('Mensagem gerada:', message);
+        console.log('URL do WhatsApp:', whatsappUrl);
+    </script>
+</body>
+</html> 

@@ -2,20 +2,13 @@ import {
   Phone,
   Mail,
   MapPin,
-  Facebook,
-  Instagram,
-  Linkedin,
   Clock,
   ArrowUp,
 } from "lucide-react";
 import { openWhatsApp } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
 
 /** Purpose: Footer component with complete company information and links */
-export function Footer() {
-  const [showBackToTop, setShowBackToTop] = useState(false);
-
+export function Footer({ onOpenPoliticaPrivacidade, onOpenTermosUso, onOpenPoliticaFrete, onOpenTrocasDevolucoes }: { onOpenPoliticaPrivacidade?: () => void, onOpenTermosUso?: () => void, onOpenPoliticaFrete?: () => void, onOpenTrocasDevolucoes?: () => void }) {
   const handleWhatsAppClick = () => {
     openWhatsApp("Olá! Gostaria de saber mais sobre a SoluSix.");
   };
@@ -27,24 +20,17 @@ export function Footer() {
     });
   };
 
-  // Show/hide back to top button based on scroll position
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      
-      // Show button when user has scrolled more than 50% of the page
-      const shouldShow = scrollY > (documentHeight - windowHeight) * 0.5;
-      setShowBackToTop(shouldShow);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <footer className="bg-navy text-white relative">
+      {/* Back to Top Button - Left Side */}
+      <button
+        onClick={scrollToTop}
+        className="absolute bottom-8 left-8 w-11 h-11 bg-gray-800/80 text-white rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center z-10 hover:bg-gray-700"
+        title="Voltar ao topo"
+      >
+        <ArrowUp className="w-4 h-4" />
+      </button>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -58,26 +44,22 @@ export function Footer() {
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-lime" />
-                <a
-                  href="https://wa.me/5511957937762"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => openWhatsApp("Olá! Gostaria de saber mais sobre a SoluSix.", "+5511957937762")}
                   className="text-gray-300 hover:text-lime transition-colors"
                 >
                   (11) 95793-7762
-                </a>
+                </button>
               </div>
 
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-lime" />
-                <a
-                  href="https://wa.me/5511948286208"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => openWhatsApp("Olá! Gostaria de saber mais sobre a SoluSix.", "+5511948286208")}
                   className="text-gray-300 hover:text-lime transition-colors"
                 >
                   (11) 94828-6208
-                </a>
+                </button>
               </div>
 
               <div className="flex items-center gap-3">
@@ -114,22 +96,6 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href="#sobre"
-                  className="text-gray-300 hover:text-lime transition-colors"
-                >
-                  Sobre Nós
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contato"
-                  className="text-gray-300 hover:text-lime transition-colors"
-                >
-                  Contato
-                </a>
-              </li>
-              <li>
                 <button
                   onClick={handleWhatsAppClick}
                   className="text-gray-300 hover:text-lime transition-colors text-left"
@@ -145,36 +111,76 @@ export function Footer() {
             <h4 className="text-lg font-semibold mb-4">Políticas</h4>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="/politica-privacidade"
-                  className="text-gray-300 hover:text-lime transition-colors"
-                >
-                  Política de Privacidade
-                </a>
+                {onOpenPoliticaPrivacidade ? (
+                  <button
+                    type="button"
+                    onClick={onOpenPoliticaPrivacidade}
+                    className="text-gray-300 hover:text-lime transition-colors text-left w-full"
+                  >
+                    Política de Privacidade
+                  </button>
+                ) : (
+                  <a
+                    href="/politica-privacidade"
+                    className="text-gray-300 hover:text-lime transition-colors"
+                  >
+                    Política de Privacidade
+                  </a>
+                )}
               </li>
               <li>
-                <a
-                  href="/termos-uso"
-                  className="text-gray-300 hover:text-lime transition-colors"
-                >
-                  Termos de Uso
-                </a>
+                {onOpenTermosUso ? (
+                  <button
+                    type="button"
+                    onClick={onOpenTermosUso}
+                    className="text-gray-300 hover:text-lime transition-colors text-left w-full"
+                  >
+                    Termos de Uso
+                  </button>
+                ) : (
+                  <a
+                    href="/termos-uso"
+                    className="text-gray-300 hover:text-lime transition-colors"
+                  >
+                    Termos de Uso
+                  </a>
+                )}
               </li>
               <li>
-                <a
-                  href="/politica-frete"
-                  className="text-gray-300 hover:text-lime transition-colors"
-                >
-                  Política de Frete
-                </a>
+                {onOpenPoliticaFrete ? (
+                  <button
+                    type="button"
+                    onClick={onOpenPoliticaFrete}
+                    className="text-gray-300 hover:text-lime transition-colors text-left w-full"
+                  >
+                    Política de Frete
+                  </button>
+                ) : (
+                  <a
+                    href="/politica-frete"
+                    className="text-gray-300 hover:text-lime transition-colors"
+                  >
+                    Política de Frete
+                  </a>
+                )}
               </li>
               <li>
-                <a
-                  href="/trocas-devolucoes"
-                  className="text-gray-300 hover:text-lime transition-colors"
-                >
-                  Trocas e Devoluções
-                </a>
+                {onOpenTrocasDevolucoes ? (
+                  <button
+                    type="button"
+                    onClick={onOpenTrocasDevolucoes}
+                    className="text-gray-300 hover:text-lime transition-colors text-left w-full"
+                  >
+                    Trocas e Devoluções
+                  </button>
+                ) : (
+                  <a
+                    href="/trocas-devolucoes"
+                    className="text-gray-300 hover:text-lime transition-colors"
+                  >
+                    Trocas e Devoluções
+                  </a>
+                )}
               </li>
             </ul>
           </div>
@@ -187,34 +193,6 @@ export function Footer() {
             <div className="text-gray-400 text-sm">
               © 2025 SoluSix. Todos os direitos reservados.
             </div>
-
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
-              <a
-                href="https://facebook.com/solusix"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-lime transition-colors"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a
-                href="https://instagram.com/solusix"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-lime transition-colors"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href="https://linkedin.com/company/solusix"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-lime transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
           {/* Analytics Script Placeholder */}
@@ -223,25 +201,6 @@ export function Footer() {
             <div className="hidden">Google Analytics: GA_ID_PLACEHOLDER</div>
           </div>
         </div>
-
-        {/* Back to Top Button */}
-        <AnimatePresence>
-          {showBackToTop && (
-            <motion.button
-              onClick={scrollToTop}
-              className="absolute bottom-8 right-8 w-11 h-11 bg-gray-800/80 text-white rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center z-10"
-              whileHover={{ scale: 1.07, y: -2 }}
-              whileTap={{ scale: 0.96 }}
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              title="Voltar ao topo"
-            >
-              <ArrowUp className="w-4 h-4" />
-            </motion.button>
-          )}
-        </AnimatePresence>
       </div>
     </footer>
   );

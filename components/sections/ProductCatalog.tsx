@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Search, Filter, Grid, List } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductModal } from "@/components/ProductModal";
-import { openWhatsApp, trackEvent } from "@/lib/utils";
+import { openWhatsApp, trackEvent, generateWhatsAppMessage } from "@/lib/utils";
 import productsData from "@/data/products.json";
 
 /** Purpose: Product catalog section with search, filters, and product display */
@@ -37,9 +37,8 @@ export function ProductCatalog() {
 
   const handleWhatsAppClick = (product: any) => {
     trackEvent("product_whatsapp_quick", { product_id: product.id });
-    openWhatsApp(
-      `Olá! Gostaria de solicitar ${product.name} por ${product.price}.`,
-    );
+    const message = generateWhatsAppMessage(product, 1); // Quantidade padrão 1
+    openWhatsApp(message);
   };
 
   return (
