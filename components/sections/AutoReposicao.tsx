@@ -8,7 +8,7 @@ export function AutoReposicao() {
 
   // Animate savings counter
   useEffect(() => {
-    const targetSavings = 10;
+    const targetSavings = 4.99;
     const duration = 2000;
     const steps = 60;
     const increment = targetSavings / steps;
@@ -21,7 +21,7 @@ export function AutoReposicao() {
         currentSavings = targetSavings;
         clearInterval(timer);
       }
-      setSavings(Math.round(currentSavings * 10) / 10);
+      setSavings(Math.round(currentSavings * 100) / 100);
     }, interval);
 
     return () => clearInterval(timer);
@@ -65,7 +65,7 @@ export function AutoReposicao() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-lime/20 text-navy px-4 py-2 rounded-full mb-6"
+            className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full mb-6"
           >
             <RefreshCw className="w-5 h-5" />
             <span className="font-semibold">Programa AutoReposição</span>
@@ -73,10 +73,10 @@ export function AutoReposicao() {
 
           {/* Main Content */}
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Economia automática de <span className="text-lime">{savings}%</span>
+            Economia automática de <span className="text-lime inline-block w-24 text-center">{savings}%</span>
           </h2>
 
-          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto mb-8 leading-relaxed">
             Cadastre-se no programa AutoReposição e receba automaticamente seus
             produtos favoritos com desconto exclusivo
           </p>
@@ -89,15 +89,41 @@ export function AutoReposicao() {
             viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
           >
-            <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 shadow-xl">
+            <motion.div 
+              className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 shadow-xl cursor-pointer"
+              whileHover={{ 
+                scale: 1.05, 
+                y: -5,
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 20 
+              }}
+            >
               <TrendingDown className="w-8 h-8 text-lime mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2 text-navy">Desconto Garantido</h3>
               <p className="text-gray-700 text-sm">
-                Economia de 10% em todos os pedidos automáticos
+                Economia de 4.99% em todos os pedidos automáticos
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 shadow-xl">
+            <motion.div 
+              className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 shadow-xl cursor-pointer"
+              whileHover={{ 
+                scale: 1.05, 
+                y: -5,
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 20 
+              }}
+            >
               <RefreshCw className="w-8 h-8 text-lime mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2 text-navy">
                 Reposição Inteligente
@@ -105,9 +131,22 @@ export function AutoReposicao() {
               <p className="text-gray-700 text-sm">
                 Receba produtos antes de acabar o estoque
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 shadow-xl">
+            <motion.div 
+              className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 shadow-xl cursor-pointer"
+              whileHover={{ 
+                scale: 1.05, 
+                y: -5,
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 20 
+              }}
+            >
               <div className="w-8 h-8 text-lime mx-auto mb-4 text-center text-2xl">
                 🚚
               </div>
@@ -115,7 +154,7 @@ export function AutoReposicao() {
               <p className="text-gray-700 text-sm">
                 Entrega gratuita em todos os pedidos do programa
               </p>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* CTA */}
@@ -126,12 +165,22 @@ export function AutoReposicao() {
             viewport={{ once: true }}
             className="flex justify-center"
           >
-            <button 
+            <motion.button 
               onClick={scrollToContact}
-              className="bg-lime text-navy px-8 py-4 rounded-lg font-semibold text-lg hover:bg-lime/90 transition-all duration-200 transform hover:scale-105"
+              className="bg-lime text-navy px-8 py-4 rounded-lg font-semibold text-lg"
+              whileHover={{ 
+                scale: 1.05,
+                backgroundColor: "#0d9488"
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 400, 
+                damping: 25 
+              }}
             >
               Cadastrar no Programa
-            </button>
+            </motion.button>
           </motion.div>
         </motion.div>
       </div>

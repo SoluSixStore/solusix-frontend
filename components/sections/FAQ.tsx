@@ -35,7 +35,7 @@ export function FAQ() {
     {
       question: "Como funciona o programa AutoReposição?",
       answer:
-        "O programa AutoReposição oferece 10% de desconto em pedidos automáticos. Você define a frequência e quantidade, e recebemos automaticamente antes de acabar o estoque, sempre com frete grátis.",
+        "O programa AutoReposição oferece 4.99% de desconto em pedidos automáticos. Você define a frequência e quantidade, e recebemos automaticamente antes de acabar o estoque, sempre com frete grátis.",
     },
     {
       question: "Posso cancelar ou alterar meu pedido?",

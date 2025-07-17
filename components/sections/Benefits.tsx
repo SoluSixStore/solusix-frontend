@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Package, Shield, RefreshCw, Users, Truck, RotateCcw } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 /** Purpose: Benefits section highlighting key value propositions */
 export function Benefits() {
@@ -46,8 +47,14 @@ export function Benefits() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-navy mb-4">
-            Por que escolher a SoluSix?
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="text-slate-800">Por que escolher a </span>
+            <span className="relative inline-block">
+              <span className="text-slate-800">Solu</span>
+              <span className="text-green-500">Six</span>
+              <div className="absolute -bottom-1 left-0 h-0.5 bg-green-500 origin-left" style={{ width: '100%' }}></div>
+            </span>
+            <span className="text-slate-800">?</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Simplificamos a compra de suprimentos profissionais com qualidade e

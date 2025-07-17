@@ -1,4 +1,4 @@
-import { Menu, X, Sparkles, Settings, Package, Award, MessageSquare, HelpCircle, Phone } from "lucide-react";
+﻿import { Menu, X, Sparkles, Settings, Package, Award, MessageSquare, HelpCircle, Phone } from "lucide-react";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import { MenuBar } from "@/components/ui/glow-menu";

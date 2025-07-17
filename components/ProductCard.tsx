@@ -50,7 +50,7 @@ export function ProductCard({
 
         {/* WhatsApp Discount Badge - Better positioned */}
         <div className="absolute top-4 right-4">
-          <Badge variant="off" className="text-xs bg-red-500 text-white">-10% WhatsApp</Badge>
+          <Badge variant="off" className="text-xs bg-red-500 text-white">-4.99% WhatsApp</Badge>
         </div>
       </div>
 

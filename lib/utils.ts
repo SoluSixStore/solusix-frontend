@@ -14,24 +14,50 @@ export function formatCurrency(value: number): string {
   }).format(value);
 }
 
-/** Purpose: Generate WhatsApp message with product details */
-export function generateWhatsAppMessage(product: any, quantity: number, discountedPrice?: number) {
-  const price = discountedPrice || product.price;
-  const totalPrice = price * quantity;
-  const discountText = discountedPrice ? " (10% de desconto aplicado)" : "";
+/** Purpose: Generate WhatsApp message with product details and discount calculation */
+export function generateWhatsAppMessage(product: any, quantity: number) {
+  // Cálculos conforme especificação
+  const totalSemDesconto = quantity * product.price;
+  const desconto = totalSemDesconto * 0.0499; // 4.99% de desconto
+  const totalComDesconto = totalSemDesconto - desconto;
+  const economia = totalSemDesconto - totalComDesconto;
   
-  return `Olá! Gostaria de solicitar ${quantity}x ${product.name}${discountText}
+  // Obter o nome completo do produto com litragem
+  const nomeCompleto = product.specs?.volume 
+    ? `${product.name} ${product.specs.volume}`
+    : product.name;
+  
+  // Construir mensagem com todos os valores
+  let message = `Olá! Quero fazer um pedido pela SoluSix
 
-Preço unitário: ${formatCurrency(price)}
-Total: ${formatCurrency(totalPrice)}
+Produto: ${nomeCompleto}
+Quantidade: ${quantity} ${quantity === 1 ? 'unidade' : 'unidades'}
+Valor unitário: ${formatCurrency(product.price)}
+Total sem desconto: ${formatCurrency(totalSemDesconto)}
+Total com 4,99% de desconto por pedir via WhatsApp: ${formatCurrency(totalComDesconto)}`;
 
-Poderia me informar sobre disponibilidade e formas de entrega?`;
+  // Adicionar linha de economia apenas se for maior que R$ 0,00
+  if (economia > 0) {
+    message += `\nEconomia: ${formatCurrency(economia)}`;
+  }
+
+  message += `
+
+Já vou te enviar o meu endereço completo, só um momento.
+
+Aguardo o link de pagamento. Obrigado!`;
+
+  return message;
 }
 
 /** Purpose: Open WhatsApp with pre-filled message */
-export function openWhatsApp(message: string): void {
-  const phone = "+5511957937762";
-  const url = `https://wa.me/${phone}?text=${message}`;
+export function openWhatsApp(message: string, phone?: string): void {
+  const defaultPhone = "+5511957937762";
+  const phoneNumber = phone || defaultPhone;
+  
+  // Codificar a mensagem completa com emojis preservados
+  const encodedMessage = encodeURIComponent(message);
+  const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
   window.open(url, "_blank");
 }
 

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+﻿import { cn } from "@/lib/utils";
 
 /** Purpose: Badge component for product labels and status indicators */
 interface BadgeProps {
