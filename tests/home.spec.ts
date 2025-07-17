@@ -10,8 +10,8 @@ test.describe('SoluSix Landing Page', () => {
     // Verificar se o header está visível
     await expect(page.locator('header')).toBeVisible();
     
-    // Verificar se o logo está presente
-    await expect(page.locator('h1:has-text("SoluSix")')).toBeVisible();
+    // Verificar se o logo está presente (usando texto do logo)
+    await expect(page.locator('text=SoluSix')).toBeVisible();
   });
 
   test('should display all main sections', async ({ page }) => {

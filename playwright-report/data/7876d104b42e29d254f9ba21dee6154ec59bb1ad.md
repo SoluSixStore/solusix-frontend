@@ -1,0 +1,287 @@
+# Page snapshot
+
+```yaml
+- main:
+  - link "SoluSix":
+    - /url: "#"
+    - img
+    - img
+    - text: SoluSix
+  - navigation:
+    - list:
+      - listitem:
+        - button "Produtos Produtos":
+          - img
+          - text: Produtos
+          - img
+          - text: Produtos
+      - listitem:
+        - button "Benefícios Benefícios":
+          - img
+          - text: Benefícios
+          - img
+          - text: Benefícios
+      - listitem:
+        - button "Experiência Experiência":
+          - img
+          - text: Experiência
+          - img
+          - text: Experiência
+      - listitem:
+        - button "Depoimentos Depoimentos":
+          - img
+          - text: Depoimentos
+          - img
+          - text: Depoimentos
+      - listitem:
+        - button "Como Funciona Como Funciona":
+          - img
+          - text: Como Funciona
+          - img
+          - text: Como Funciona
+      - listitem:
+        - button "Dúvidas Frequentes Dúvidas Frequentes":
+          - img
+          - text: Dúvidas Frequentes
+          - img
+          - text: Dúvidas Frequentes
+      - listitem:
+        - button "Contato Contato":
+          - img
+          - text: Contato
+          - img
+          - text: Contato
+  - img
+  - text: Frete grátis 1.º pedido
+  - heading "Suprimentos profissionais sem complicação." [level=1]
+  - paragraph: Não perca tempo com 5 fornecedores. Use 1 que entrega tudo.
+  - button "Quero meu frete grátis"
+  - paragraph: Do essencial ao inesperado.
+  - button "Fechar balão":
+    - img
+  - text: Online agora Olá! 👋 Estamos online para te ajudar! Mande sua dúvida ou mensagem, respondemos rapidinho no WhatsApp.
+  - button "Fale conosco no WhatsApp":
+    - img
+  - heading "Nossos Produtos" [level=2]
+  - paragraph: Catálogo curado de suprimentos profissionais com qualidade garantida
+  - img
+  - textbox "Buscar produtos..."
+  - button "Todos"
+  - button "Limpeza"
+  - button "Cozinha"
+  - button "Escritório"
+  - button:
+    - img
+  - button:
+    - img
+  - img "Detergente para Máquina de Lavar Louças - Maq-wash"
+  - text: "-4.99% WhatsApp"
+  - heading "Detergente para Máquina de Lavar Louças - Maq-wash" [level=3]
+  - text: 5L
+  - paragraph: Detergente lava-louças de 5 litros (5L) utilizado para higienizar louças e utensílios em máquinas de lavar louças profissionais, através de equipamentos dosadores específicos.
+  - text: R$ 63,90 R$ 89,00
+  - button "Ver detalhes"
+  - button "Pedir via WhatsApp":
+    - img
+  - img "Detergente para Máquina de Lavar Louças - Maq-wash"
+  - text: "-4.99% WhatsApp"
+  - heading "Detergente para Máquina de Lavar Louças - Maq-wash" [level=3]
+  - text: 20L
+  - paragraph: Detergente lava-louças de 20 litros (20L) utilizado para higienizar louças e utensílios em máquinas de lavar louças profissionais, através de equipamentos dosadores específicos.
+  - text: R$ 305,00 R$ 356,00
+  - button "Ver detalhes"
+  - button "Pedir via WhatsApp":
+    - img
+  - img "Secante e abrilhantador para lava louças - Maq rinse"
+  - text: "-4.99% WhatsApp"
+  - heading "Secante e abrilhantador para lava louças - Maq rinse" [level=3]
+  - text: 5L
+  - paragraph: Secante e abrilhantador para lava-louças – Maq-Rinse de 5 litros (5L)
+  - text: R$ 89,00 R$ 99,00
+  - button "Ver detalhes"
+  - button "Pedir via WhatsApp":
+    - img
+  - heading "Por que escolher a SoluSix ?" [level=2]
+  - paragraph: Simplificamos a compra de suprimentos profissionais com qualidade e agilidade
+  - img
+  - heading "Tudo num só lugar" [level=3]
+  - paragraph: Evite lidar com vários fornecedores. Aqui, você encontra itens de limpeza, utensílios e peças industriais em um só clique.
+  - img
+  - heading "Estoque validado por especialistas" [level=3]
+  - paragraph: Todos os produtos são usados ou testados por profissionais experientes, com garantia de desempenho no dia a dia.
+  - img
+  - heading "Reposição automática com desconto" [level=3]
+  - paragraph: Cadastre itens de uso recorrente e receba com 5% off, sem precisar refazer pedidos todo mês.
+  - img
+  - heading "Atendimento direto com sócio" [level=3]
+  - paragraph: Nada de chatbot que não resolve. Você fala com gente de verdade, que entende do produto e quer ver seu negócio prosperar.
+  - img
+  - heading "Primeira compra com frete grátis" [level=3]
+  - paragraph: Receba seu primeiro pedido sem pagar o frete e conheça nossa eficiência de perto.
+  - img
+  - heading "Reposição garantida ou seu dinheiro de volta" [level=3]
+  - paragraph: "Se algo vier errado ou com defeito, resolvemos rápido: troca gratuita ou reembolso direto. Sem burocracia, sem enrolação."
+  - img
+  - text: Experiência consolidada
+  - heading "Credibilidade que vem da experiência real" [level=2]
+  - paragraph: Criada em 2025, a SoluSix é fruto da união de seis sócios com mais de 30 anos de vivência prática em comércio, logística, tecnologia e eventos. Parte do time fundou a Editec, especializada em soluções técnicas desde 2019.
+  - img
+  - text: "1990"
+  - heading "Início da Jornada" [level=3]
+  - paragraph: Parte do time inicia carreira em assistência técnica para grandes empresas de cozinhas industriais
+  - img
+  - text: "2019"
+  - heading "Fundação da Editec" [level=3]
+  - paragraph: Parte do time funda a Editec, especializada em cozinhas profissionais
+  - img
+  - text: "2025"
+  - heading "Nascimento da SoluSix" [level=3]
+  - paragraph: Seis sócios unem forças para criar a SoluSix com experiência consolidada
+  - paragraph: "Essa bagagem nos permite selecionar produtos testados em campo, negociar com quem entende do assunto e garantir uma operação confiável desde o primeiro pedido. A SoluSix nasce nova, mas já carrega experiência de sobra para entregar o que importa: qualidade, preço justo e compromisso com o cliente."
+  - text: 0+ Anos de experiência dos sócios 0 Sócios especialistas 0 Áreas de expertise
+  - heading "O que nossos clientes dizem" [level=2]
+  - paragraph: Confiança e satisfação garantidas pelos nossos clientes
+  - img
+  - img
+  - img
+  - img
+  - img
+  - img
+  - paragraph: "\"Já confiávamos na Editec desde 2019, e a SoluSix segue o mesmo padrão de excelência. Produtos de qualidade superior.\""
+  - text: J João Freitas Coordenador de Hotelaria • Rede de hotéis premium
+  - img
+  - img
+  - img
+  - img
+  - img
+  - img
+  - paragraph: "\"Nova no mercado, mas com a mesma qualidade de quem já atua há anos na área técnica. Recomendo fortemente.\""
+  - text: C Carlos Mendes Diretor Administrativo • Escola Particular
+  - button "Ir para grupo 1"
+  - button "Ir para grupo 2"
+  - button "Ir para grupo 3"
+  - button "Ir para grupo 4"
+  - button "Ir para grupo 5"
+  - button "Ir para grupo 6"
+  - button "Ir para grupo 7"
+  - button "Ir para grupo 8"
+  - button "Ir para grupo 9"
+  - button "Ir para grupo 10"
+  - button "Depoimento anterior":
+    - img
+  - button "Próximo depoimento":
+    - img
+  - paragraph: Junte-se aos nossos clientes satisfeitos
+  - text: 0/5 Avaliação média 0+ Clientes ativos 0% Satisfação
+  - heading "Como funciona" [level=2]
+  - paragraph: Processo simples e rápido para você focar no que realmente importa
+  - text: "1"
+  - img
+  - heading "Escolher" [level=3]
+  - paragraph: Navegue pelo catálogo curado e selecione os produtos que precisa para seu negócio
+  - text: "2"
+  - img
+  - heading "Pagar" [level=3]
+  - paragraph: "Escolha seu canal preferido: WhatsApp, Mercado Livre ou Shopee. Pagamento facilitado no método que preferir"
+  - text: "3"
+  - img
+  - heading "Receber" [level=3]
+  - paragraph: "Receba conforme o canal escolhido: entrega expressa, retirada ou agendamento personalizado"
+  - heading "Pronto para começar?" [level=3]
+  - paragraph: Entre em contato conosco e descubra como podemos ajudar seu negócio
+  - button "Falar conosco"
+  - button "Ver produtos"
+  - img
+  - text: Programa AutoReposição
+  - heading "Economia automática de 1%" [level=2]
+  - paragraph: Cadastre-se no programa AutoReposição e receba automaticamente seus produtos favoritos com desconto exclusivo
+  - img
+  - heading "Desconto Garantido" [level=3]
+  - paragraph: Economia de 4.99% em todos os pedidos automáticos
+  - img
+  - heading "Reposição Inteligente" [level=3]
+  - paragraph: Receba produtos antes de acabar o estoque
+  - text: 🚚
+  - heading "Frete Grátis" [level=3]
+  - paragraph: Entrega gratuita em todos os pedidos do programa
+  - button "Cadastrar no Programa"
+  - img
+  - text: Perguntas Frequentes
+  - heading "Dúvidas Comuns" [level=2]
+  - paragraph: Tire suas dúvidas sobre nossos produtos e serviços
+  - button "De onde vem a experiência da SoluSix?":
+    - text: De onde vem a experiência da SoluSix?
+    - img
+  - text: A SoluSix foi criada em 2025 por seis sócios com mais de 30 anos de experiência no mercado de suprimentos profissionais. Nossa credibilidade vem da vivência real dos sócios, que atuam há décadas no setor, incluindo a fundação da Editec em 2019. Essa bagagem nos permite selecionar produtos testados em campo e oferecer uma operação confiável desde o primeiro pedido.
+  - button "Como funciona a entrega?":
+    - text: Como funciona a entrega?
+    - img
+  - text: "Oferecemos entrega expressa em todo o Brasil: 48 horas nas capitais e principais cidades, 72 horas no resto do país. Todos os pedidos são rastreados e você recebe atualizações em tempo real."
+  - button "Qual a diferença entre B2B e B2C?":
+    - text: Qual a diferença entre B2B e B2C?
+    - img
+  - text: B2B (Business to Business) é para empresas e comércios que precisam de volumes maiores e preços especiais. B2C (Business to Consumer) é para uso pessoal ou pequenas quantidades. Ambos têm a mesma qualidade premium.
+  - button "Como funciona o frete grátis?":
+    - text: Como funciona o frete grátis?
+    - img
+  - text: O frete grátis é válido para o primeiro pedido de cada CPF/CNPJ, limitado a 1 kit por pessoa/empresa. Após o primeiro pedido, oferecemos frete com desconto para clientes cadastrados.
+  - button "Os produtos são originais?":
+    - text: Os produtos são originais?
+    - img
+  - text: Sim, todos os nossos produtos são 100% originais e certificados. Trabalhamos diretamente com fabricantes autorizados e garantimos a procedência de todos os itens.
+  - button "Como funciona o programa AutoReposição?":
+    - text: Como funciona o programa AutoReposição?
+    - img
+  - text: O programa AutoReposição oferece 4.99% de desconto em pedidos automáticos. Você define a frequência e quantidade, e recebemos automaticamente antes de acabar o estoque, sempre com frete grátis.
+  - button "Posso cancelar ou alterar meu pedido?":
+    - text: Posso cancelar ou alterar meu pedido?
+    - img
+  - text: Sim, você pode cancelar ou alterar seu pedido até 2 horas após a confirmação. Entre em contato via WhatsApp e nossa equipe fará os ajustes necessários.
+  - button "Vocês atendem todo o Brasil?":
+    - text: Vocês atendem todo o Brasil?
+    - img
+  - text: Sim, atendemos todo o território nacional. Nossa logística é otimizada para garantir entrega rápida e segura em qualquer região do país.
+  - heading "Contato" [level=2]
+  - paragraph: Vamos bater um papo? Conte pra gente como podemos te ajudar! 😊
+  - textbox "Seu nome"
+  - textbox "Seu e-mail"
+  - textbox "Sua mensagem"
+  - button "Enviar Mensagem"
+  - button "Voltar ao topo":
+    - img
+  - heading "SoluSix" [level=3]
+  - paragraph: "Suprimentos profissionais sem complicação. Do inox ao detergente: clicou, chegou."
+  - img
+  - button "(11) 95793-7762"
+  - img
+  - button "(11) 94828-6208"
+  - img
+  - link "contato@solusix.com.br":
+    - /url: mailto:contato@solusix.com.br
+  - img
+  - text: São Paulo, SP - Brasil
+  - img
+  - text: "Atendimento: Segunda a Sexta, 08:00 às 18:00"
+  - heading "Links Rápidos" [level=4]
+  - list:
+    - listitem:
+      - link "Produtos":
+        - /url: "#produtos"
+    - listitem:
+      - button "WhatsApp"
+  - heading "Políticas" [level=4]
+  - list:
+    - listitem:
+      - button "Política de Privacidade"
+    - listitem:
+      - button "Termos de Uso"
+    - listitem:
+      - button "Política de Frete"
+    - listitem:
+      - button "Trocas e Devoluções"
+  - text: © 2025 SoluSix. Todos os direitos reservados.
+  - heading "21st.dev Toolbar Test" [level=2]
+  - paragraph: Check browser console for debug information
+  - paragraph: "Current environment: development"
+- alert
+```
