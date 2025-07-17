@@ -103,3 +103,77 @@ export function getSavedCoupon(): string | null {
 
   return null;
 }
+
+// Viewport utilities for mobile responsiveness
+export const getViewportInfo = () => {
+  if (typeof window === 'undefined') {
+    return {
+      width: 0,
+      height: 0,
+      pixelRatio: 1,
+      isHighDPI: false,
+      isTablet: false,
+      isMobile: false,
+      orientation: 'portrait' as const
+    }
+  }
+
+  const width = window.innerWidth
+  const height = window.innerHeight
+  const pixelRatio = window.devicePixelRatio || 1
+  const isHighDPI = pixelRatio >= 2
+  const isTablet = width >= 768 && width <= 1024
+  const isMobile = width < 768
+  const orientation = width > height ? 'landscape' : 'portrait'
+
+  return {
+    width,
+    height,
+    pixelRatio,
+    isHighDPI,
+    isTablet,
+    isMobile,
+    orientation
+  }
+}
+
+// Calculate safe menu height considering various factors
+export const calculateMenuHeight = (viewportHeight: number, headerHeight: number = 64) => {
+  const safeMargin = 16
+  const maxHeight = viewportHeight - headerHeight - safeMargin
+  
+  // Ensure minimum height for usability
+  const minHeight = 200
+  const calculatedHeight = Math.max(maxHeight, minHeight)
+  
+  return `min(${calculatedHeight}px, calc(100vh - ${headerHeight + safeMargin}px))`
+}
+
+// Detect if device supports visualViewport API
+export const supportsVisualViewport = () => {
+  return typeof window !== 'undefined' && 'visualViewport' in window
+}
+
+// Get current visual viewport height (accounts for keyboard on mobile)
+export const getVisualViewportHeight = () => {
+  if (typeof window === 'undefined') {
+    return 0
+  }
+  
+  if (supportsVisualViewport()) {
+    return window.visualViewport?.height || window.innerHeight
+  }
+  return window.innerHeight
+}
+
+// Check if device is a high-resolution mobile device
+export const isHighResMobile = () => {
+  const info = getViewportInfo()
+  return info.isMobile && info.isHighDPI && info.width >= 800 && info.width <= 1400
+}
+
+// Check if device is an ultra-high resolution device
+export const isUltraHighRes = () => {
+  const info = getViewportInfo()
+  return info.width >= 1000 && info.height >= 2400 && info.isHighDPI
+}

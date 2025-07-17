@@ -1,15 +1,19 @@
 ﻿import { Menu, X, Sparkles, Settings, Package, Award, MessageSquare, HelpCircle, Phone } from "lucide-react";
 import { useState, useEffect, useRef, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MenuBar } from "@/components/ui/glow-menu";
 import { HyperText } from "@/components/ui/hyper-text";
 import SoluSixLogo from "@/components/ui/SoluSixLogoEnhanced";
+import { getVisualViewportHeight, calculateMenuHeight, getViewportInfo } from "@/lib/utils";
 
 /** Purpose: Header component with navigation and contact options */
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState<string>("");
+  const [viewportHeight, setViewportHeight] = useState<number>(0);
+  const [viewportInfo, setViewportInfo] = useState(() => getViewportInfo());
   const isClickScrolling = useRef(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Menu reorganizado seguindo o funil de vendas otimizado
   const menuItems = useMemo(() => [
@@ -71,6 +75,53 @@ export function Header() {
     },
   ], []);
 
+  // Viewport height detection for mobile menu
+  useEffect(() => {
+    const updateViewport = () => {
+      setViewportHeight(getVisualViewportHeight());
+      setViewportInfo(getViewportInfo());
+    };
+
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+    window.addEventListener('orientationchange', updateViewport);
+    
+    // Listen for visualViewport changes (keyboard open/close)
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', updateViewport);
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateViewport);
+      window.removeEventListener('orientationchange', updateViewport);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', updateViewport);
+      }
+    };
+  }, []);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   // Scrollspy effect
   useEffect(() => {
     const handleScroll = () => {
@@ -122,6 +173,12 @@ export function Header() {
     });
   };
 
+  // Calculate max height for mobile menu
+  const getMobileMenuMaxHeight = () => {
+    if (viewportHeight === 0) return 'calc(100vh - 4rem)'; // fallback
+    return calculateMenuHeight(viewportHeight, 64);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-0 sm:px-2 lg:px-4">
@@ -145,8 +202,9 @@ export function Header() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 touch-manipulation"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
           >
             {isMenuOpen ? (
               <X className="w-6 h-6 text-gray-700" />
@@ -157,29 +215,55 @@ export function Header() {
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {menuItems.map((item) => (
-                <motion.a
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:text-lime transition-colors rounded-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                  whileHover={{
-                    scale: 1.02,
-                    backgroundColor: "rgba(16, 242, 127, 0.1)",
-                    transition: { duration: 0.2 }
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <item.icon className="w-4 h-4" />
-                  {item.label}
-                </motion.a>
-              ))}
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              ref={menuRef}
+              className={`md:hidden mobile-menu-container mobile-menu-scroll ${
+                viewportInfo.isTablet ? 'tablet-menu' : ''
+              } ${viewportInfo.orientation === 'landscape' ? 'landscape-menu' : ''}`}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              style={{
+                maxHeight: getMobileMenuMaxHeight(),
+                overflowY: 'auto',
+              }}
+            >
+              <div className="px-2 pt-2 pb-3 space-y-1 safe-area-inset-bottom">
+                {menuItems.map((item, index) => (
+                  <motion.a
+                    key={item.href}
+                    href={item.href}
+                    className={`mobile-menu-item touch-target ${
+                      viewportInfo.isHighDPI ? 'mobile-menu-high-res' : ''
+                    } ${
+                      viewportInfo.width >= 1000 && viewportInfo.height >= 2400 ? 'mobile-menu-ultra-high-res' : ''
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ 
+                      duration: 0.2, 
+                      delay: index * 0.05,
+                      ease: "easeOut"
+                    }}
+                    whileHover={{
+                      scale: 1.02,
+                      backgroundColor: "rgba(16, 242, 127, 0.1)",
+                      transition: { duration: 0.2 }
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <item.icon className="w-5 h-5 flex-shrink-0" />
+                    <span className="font-medium">{item.label}</span>
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

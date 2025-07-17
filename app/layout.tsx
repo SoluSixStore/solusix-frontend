@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ToolbarClient from "../components/ToolbarClient";
+import { ViewportDebug } from "../components/ViewportDebug";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.solusix.com.br"),
@@ -51,7 +52,12 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className="antialiased">
         {children}
-        {process.env.NODE_ENV === "development" && <ToolbarClient />}
+        {process.env.NODE_ENV === "development" && (
+          <>
+            <ToolbarClient />
+            <ViewportDebug />
+          </>
+        )}
       </body>
     </html>
   );
