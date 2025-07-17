@@ -113,13 +113,22 @@ export function Header() {
     }
   };
 
+  // Função para scroll suave para o topo
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-0 sm:px-2 lg:px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
-            <a href="#inicio" className="pr-4">
+            <a href="#" onClick={handleLogoClick} className="pr-4">
               <SoluSixLogo size="md" animated={true} />
             </a>
           </div>
